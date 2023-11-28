@@ -1,0 +1,16 @@
+.time-header td a {
+    text-decoration: none;
+    color: grey;
+}
+
+.time-header td {
+    padding-left: 15px;
+}
+
+.time-header td.selected {
+    border-bottom: red solid 2px;
+}
+
+.time-header td.selected a {
+    color: black;
+}

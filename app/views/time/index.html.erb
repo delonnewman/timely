@@ -1,0 +1,56 @@
+<div class="d-flex align-items-center mb-3">
+  <div class="btn-group me-2" role="group">
+    <%= link_to time_path(view.prev_week_start_at, view: view.name), class: 'btn btn-sm btn-outline-secondary' do %>
+      <i class="bi bi-arrow-left"></i>
+    <% end %>
+    <%= link_to time_path(view.next_week_start_at, view: view.name), class: 'btn btn-sm btn-outline-secondary' do %>
+      <i class="bi bi-arrow-right"></i>
+    <% end %>
+  </div>
+  <h2 class="me-2 mb-0"><%= view.start_at.strftime('%A, %e %b') %></h2>
+  <%= link_to 'Return to today', time_path(Date.today, view: view.name) %>
+</div>
+
+<div class="row border-bottom time-header">
+  <div class="col-10">
+    <table class="w-100">
+      <thead>
+      <% view.date_totals.each do |date, duration| %>
+        <td class="pb-2 <%= 'selected' if view.same_date?(date) %>">
+          <%= link_to time_path(date, view: view.name), style: 'display:block' do %>
+            <strong><%= date.strftime('%a') %></strong><br>
+            <small>
+              <%= duration %>
+              <% unless duration.zero? %><i class="bi bi-clock"></i><% end %>
+            </small>
+          <% end %>
+        </td>
+      <% end %>
+      </thead>
+    </table>
+  </div>
+  <div class="col-2 text-end">
+    Week total<br><small><%= view.total_duration %></small>
+  </div>
+</div>
+
+<% if view.entries.empty? %>
+  <div class="bg-light" style="height: 400px">
+
+  </div>
+<% else %>
+  <div class="time-entries mt-3">
+    <% view.entries.each do |entry| %>
+      <div class="d-flex justify-content-between border-bottom pb-3 mb-3">
+        <div>
+          <h6><%= entry.project %></h6>
+          <small class="text-muted"><%= entry.description %></small>
+        </div>
+        <div class="d-flex align-items-center">
+          <%= entry.duration %>
+          <button class="btn btn-sm btn-outline-secondary ms-2">Edit</button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
