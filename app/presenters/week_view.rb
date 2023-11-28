@@ -5,7 +5,11 @@ class WeekView < TimeView
     'Week'
   end
 
-  def end_at
-    (start_at + 7).at_end_of_day
+  def start_on
+    ref_date.at_beginning_of_week
+  end
+
+  def end_on
+    ref_date.at_end_of_week
   end
 end

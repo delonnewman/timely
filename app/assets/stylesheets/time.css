@@ -7,7 +7,7 @@
     padding-left: 15px;
 }
 
-.time-header td.selected {
+.time-header td.selected, .time-header td:hover {
     border-bottom: red solid 2px;
 }
 

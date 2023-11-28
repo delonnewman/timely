@@ -16,12 +16,12 @@ class TimeView
     end
   end
 
-  def next_week_start_at
-    start_at.to_date + 7
+  def next_day
+    start_at.to_date + 1
   end
 
-  def prev_week_start_at
-    start_at.to_date - 7
+  def prev_day
+    start_at.to_date - 1
   end
 
   def same_date?(date)
@@ -56,11 +56,23 @@ class TimeView
   end
 
   def start_at
-    Date.new(year, month, day).at_beginning_of_day
+    start_on.at_beginning_of_day
+  end
+
+  def start_on
+    raise NotImplementedError
   end
 
   def end_at
+    end_on.at_end_of_day
+  end
+
+  def end_on
     raise NotImplementedError
+  end
+
+  def ref_date
+    Date.new(year, month, day)
   end
 
   def year

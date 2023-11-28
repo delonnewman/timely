@@ -1,9 +1,9 @@
 <div class="d-flex align-items-center mb-3">
   <div class="btn-group me-2" role="group">
-    <%= link_to time_path(view.prev_week_start_at, view: view.name), class: 'btn btn-sm btn-outline-secondary' do %>
+    <%= link_to time_path(view.prev_day, view: view.name), class: 'btn btn-sm btn-outline-secondary' do %>
       <i class="bi bi-arrow-left"></i>
     <% end %>
-    <%= link_to time_path(view.next_week_start_at, view: view.name), class: 'btn btn-sm btn-outline-secondary' do %>
+    <%= link_to time_path(view.next_day, view: view.name), class: 'btn btn-sm btn-outline-secondary' do %>
       <i class="bi bi-arrow-right"></i>
     <% end %>
   </div>

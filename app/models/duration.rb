@@ -2,6 +2,8 @@
 
 # A duration of time in minutes
 class Duration
+  include Comparable
+
   attr_reader :minutes
 
   delegate :to_i, :to_r, :to_f, :hash, :zero?, to: :@minutes
@@ -10,13 +12,46 @@ class Duration
     @zero ||= new(0)
   end
 
+  # Construct duration objects from hour, minute components or from a string.
+  # When two arguments are given they will be treated as hour, minute components
+  # and assumed to be integers. When one argument is given it will be assumed to
+  # be a string.
+  #
+  # @see parse for string formatting
+  def self.[](hour, min = nil)
+    if min
+      new((hour * 60) + min)
+    else
+      parse(hour)
+    end
+  end
+
+  ParseError = Class.new(RuntimeError)
+
+  # Parse duration from string of the form "HH:MM"
+  def self.parse(string)
+    raise ParseError, "invalid format expected HH:MM, got #{string.inspect}" unless string =~ /\d\d:\d\d/
+
+    hour, min = string.split(':')
+    new((hour.to_i * 60) + min.to_i)
+  end
+
   def initialize(minutes)
     @minutes = minutes
     freeze
   end
 
+  def <=>(other)
+    mins = other.respond_to?(:minutes) ? other.minutes : other
+
+    return -1 if minutes < mins
+    return  1 if minutes > mins
+
+    0
+  end
+
   def +(other)
-    if other.is_a?(Duration)
+    if other.respond_to?(:minutes)
       Duration.new(minutes + other.minutes)
     else
       Duration.new(minutes + other)
@@ -44,6 +79,9 @@ class Duration
     minutes.to_f / 60
   end
 
+  # Add this for symmetry
+  alias in_minutes minutes
+
   def hour
     in_hours.truncate
   end
@@ -52,7 +90,7 @@ class Duration
     ((in_hours - hour) * 60).round
   end
 
-  def round(factor)
+  def round(factor = 15)
     Duration.new((minutes.to_r / factor).round * factor)
   end
 end

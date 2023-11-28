@@ -16,15 +16,9 @@
     <div class="container-fluid">
       <span class="navbar-brand mb-0">Timely</span>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<%= time_path %>">Time</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<%= projects_path %>">Projects</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Reports</a>
-        </li>
+        <%= nav_item 'Time', time_path, active: params[:controller] == 'time' %>
+        <%= nav_item 'Projects', projects_path, active: params[:controller] == 'projects' %>
+        <%= nav_item 'Reports', '#', active: params[:controller] == 'reports' %>
       </ul>
     </div>
   </nav>

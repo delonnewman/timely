@@ -5,7 +5,11 @@ class DayView < TimeView
     'Day'
   end
 
+  def start_at
+    ref_date.at_beginning_of_day
+  end
+
   def end_at
-    start_at.at_end_of_day
+    ref_date.at_end_of_day
   end
 end
