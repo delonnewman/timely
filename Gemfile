@@ -44,6 +44,9 @@ gem 'csv_builder'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri]
+
+  gem 'capybara'
+
   gem 'rspec'
   gem 'rspec-rails'
 end
@@ -53,6 +56,7 @@ group :development do
   gem 'web-console'
 
   gem 'rubocop'
+  gem 'rubocop-capybara'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rake'

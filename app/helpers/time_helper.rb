@@ -17,4 +17,8 @@ module TimeHelper
 
     path.join('/')
   end
+
+  def formatted_time(view)
+    view.start_at.strftime('%A, %e %b')
+  end
 end

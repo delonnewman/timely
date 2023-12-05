@@ -2,14 +2,13 @@
 
 # An entry of recorded minutes in a project
 class TimeEntry < ApplicationRecord
-  validates :minutes, presence: true
-
   belongs_to :project
   delegate :rounding_factor, to: :project
 
-  def duration(rounded: true)
-    return Duration.new(minutes) unless rounded
+  validates :minutes, presence: true
+  composed_of :duration, mapping: { minutes: :minutes }, converter: ->(duration) { Duration[duration] }
 
-    Duration.new(minutes).round(rounding_factor)
+  def round
+    duration.round(rounding_factor)
   end
 end

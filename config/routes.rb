@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   root 'time#index'
 
   resources :projects
+  resources :time_entries, except: %i[index]
 
   get '/time', to: 'time#index'
   get '/time/:view/:year/:month/:day', to: 'time#index'

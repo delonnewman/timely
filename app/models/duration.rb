@@ -14,15 +14,17 @@ class Duration
 
   # Construct duration objects from hour, minute components or from a string.
   # When two arguments are given they will be treated as hour, minute components
-  # and assumed to be integers. When one argument is given it will be assumed to
-  # be a string.
+  # and assumed to be integers. When one argument is given and it is a string it
+  # will be parsed otherwise it will be passed to new as the number of minutes.
   #
   # @see parse for string formatting
   def self.[](hour, min = nil)
     if min
       new((hour * 60) + min)
-    else
+    elsif hour.is_a?(String)
       parse(hour)
+    else
+      new(hour)
     end
   end
 

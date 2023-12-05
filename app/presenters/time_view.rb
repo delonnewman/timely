@@ -16,12 +16,12 @@ class TimeView
     end
   end
 
-  def next_day
-    start_at.to_date + 1
+  def next_week
+    start_at.to_date + 7
   end
 
-  def prev_day
-    start_at.to_date - 1
+  def prev_week
+    start_at.to_date - 7
   end
 
   def same_date?(date)

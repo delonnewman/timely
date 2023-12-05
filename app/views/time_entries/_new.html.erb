@@ -1,0 +1,25 @@
+<%= form_for :time_entry, url: time_entries_path do |f| %>
+  <%= f.hidden_field :created_at, value: entry_date %>
+  <div class="row">
+    <div class="col-11">
+      <%= f.select :project_id, options_from_collection_for_select(Project.all, 'id', 'to_s'), {}, { class: 'form-select' } %>
+      <%= f.text_area :description, placeholder: 'Notes (optional)', class: 'form-control mt-1' %>
+    </div>
+    <div class="col-1">
+      <%= f.text_field :duration, placeholder: "00:00", class: 'form-control' %>
+    </div>
+  </div>
+  <div class="mt-2">
+    <button
+      class="btn btn-primary"
+      hx-post="<%= time_entries_path %>"
+      hx-swap="innerHTML"
+      hx-target="#new-entry"
+    >
+      Create
+    </button>
+    <button class="btn btn-sm btn-outline-secondary">
+      Cancel
+    </button>
+  </div>
+<% end %>

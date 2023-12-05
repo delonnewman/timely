@@ -1,0 +1,39 @@
+<%= form_for time_entry, url: time_entry_path(time_entry) do |f| %>
+  <%= f.hidden_field :created_at, value: entry_date %>
+  <div class="row">
+    <div class="col-11">
+      <%= f.select :project_id, options_from_collection_for_select(Project.all, 'id', 'to_s', time_entry.project_id), {}, { class: 'form-select' } %>
+      <%= f.text_area :description, placeholder: 'Notes (optional)', class: 'form-control mt-1' %>
+    </div>
+    <div class="col-1">
+      <%= f.text_field :duration, placeholder: "00:00", class: 'form-control' %>
+    </div>
+  </div>
+  <div class="mt-2">
+    <button
+      class="btn btn-primary"
+      hx-post="<%= time_entry_path(time_entry) %>"
+      hx-swap="innerHTML"
+      hx-target="#entry-<%= time_entry.id %>"
+    >
+      Update
+    </button>
+    <button
+      class="btn btn-sm btn-outline-secondary"
+      hx-get="<%= time_entry_path(time_entry) %>"
+      hx-swap="innerHTML"
+      hx-target="#entry-<%= time_entry.id %>"
+    >
+      Cancel
+    </button>
+    <button
+      class="btn btn-sm btn-link text-danger"
+      hx-delete="<%= time_entry_path(time_entry) %>"
+      hx-swap="outerHTML"
+      hx-target="#entry-<%= time_entry.id %>"
+      hx-vals='{"authenticity_token": "<%= session[:_csrf_token] %>"}'
+    >
+      Delete
+    </button>
+  </div>
+<% end %>
