@@ -2,14 +2,14 @@
 
 class TimeController < ApplicationController
   def index
-    view = TimeView[view_desc].new(Project.ids, params)
+    view = TimeView[view_key].new(Project.ids, params)
 
     render :index, locals: { view: }
   end
 
   private
 
-  def view_desc
+  def view_key
     params.fetch(:view, 'day')
   end
 end

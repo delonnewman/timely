@@ -14,10 +14,6 @@ gem 'puma', '>= 5.0'
 gem 'importmap-rails'
 gem 'sprockets-rails'
 
-# Front-end
-gem 'stimulus-rails'
-gem 'turbo-rails'
-
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
 
@@ -41,6 +37,8 @@ gem 'faker'
 gem 'caxlsx'
 gem 'caxlsx_rails'
 gem 'csv_builder'
+
+gem 'chartkick'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri]

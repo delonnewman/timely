@@ -18,7 +18,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <%= nav_item 'Time', time_path, active: params[:controller] == 'time' %>
         <%= nav_item 'Projects', projects_path, active: params[:controller] == 'projects' %>
-        <%= nav_item 'Reports', '#', active: params[:controller] == 'reports' %>
+        <%= nav_item 'Reports', reports_path, active: params[:controller] == 'reports' %>
       </ul>
     </div>
   </nav>

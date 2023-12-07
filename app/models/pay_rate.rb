@@ -9,7 +9,7 @@ class PayRate < ApplicationRecord
     when 'per hour'
       magnitude * other.in_hours
     else
-      magnitude * other.minutes
+      magnitude * other.in_minutes
     end
   end
 end

@@ -1,0 +1,66 @@
+<div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom">
+  <div class="d-flex align-items-center">
+    <% if report.symmetric? %>
+      <div class="btn-group me-2" role="group">
+        <%= link_to prev_report_path(report), class: report_nav_classes(report) do %>
+          <i class="bi bi-arrow-left"></i>
+        <% end %>
+        <%= link_to next_report_path(report), class: report_nav_classes(report) do %>
+          <i class="bi bi-arrow-right"></i>
+        <% end %>
+      </div>
+    <% end %>
+    <h2 class="me-2 mb-0"><%= report.title %></h2>
+    <% unless report.current? %>
+      <%= link_to current_report_label(report), current_report_path(report) %>
+    <% end %>
+  </div>
+  <div>
+    <%= form_tag reports_path, method: :get do %>
+      <%= select_tag :kind, options_for_report_kinds(params[:kind]), class: 'form-select', onchange: 'this.parentElement.submit()' %>
+    <% end %>
+  </div>
+</div>
+
+<div class="container d-flex">
+  <div class="me-5">
+    <small>Total hours</small><br>
+    <div class="h4"><%= report.total_duration %></div>
+  </div>
+  <div class="me-5">
+    <small>Billable Percentage</small><br>
+    <div class="h4"><%= number_to_percentage report.billable_percentage, precision: 0 %></div>
+  </div>
+  <div>
+    <small>Billable Amount</small><br>
+    <div class="h4"><%= number_to_currency report.billable_amount %></div>
+  </div>
+</div>
+
+<table class="table mt-4">
+  <thead>
+    <tr>
+      <th style="width:40%">Group</th>
+      <th style="width:40%">Hours</th>
+      <th style="width:20%">Billable Hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% report.entry_groupings.each do |grouping| %>
+       <tr>
+         <td><%= grouping.name %></td>
+         <td><%= grouping.duration %></td>
+         <td>
+           <% if grouping.billable_amount? %>
+             <div class="row">
+               <div class="col"><%= number_to_currency grouping.billable_amount %></div>
+               <div class="col text-muted">(<%= number_to_percentage grouping.billable_percentage, precision: 0 %>)</div>
+             </div>
+           <% else %>
+              &mdash;
+           <% end %>
+         </td>
+       </tr>
+    <% end %>
+  </tbody>
+</table>

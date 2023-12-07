@@ -2,7 +2,7 @@
 
 class TimeView
   def self.[](name)
-    "#{name}_view".classify.constantize
+    "#{name}_time_view".classify.constantize
   end
 
   def initialize(project_ids, params)
@@ -36,8 +36,8 @@ class TimeView
     raise NotImplementedError
   end
 
-  def total_duration
-    duration(start_at, end_at)
+  def week_total_duration
+    duration(start_at.at_beginning_of_week, end_at.at_end_of_week)
   end
 
   def entries
@@ -59,21 +59,15 @@ class TimeView
     start_on.at_beginning_of_day
   end
 
-  def start_on
-    raise NotImplementedError
-  end
-
   def end_at
     end_on.at_end_of_day
-  end
-
-  def end_on
-    raise NotImplementedError
   end
 
   def ref_date
     Date.new(year, month, day)
   end
+  alias start_on ref_date
+  alias end_on ref_date
 
   def year
     params.fetch(:year, Date.today.year).to_i

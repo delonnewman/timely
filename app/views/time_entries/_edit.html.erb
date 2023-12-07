@@ -1,5 +1,6 @@
 <%= form_for time_entry, url: time_entry_path(time_entry) do |f| %>
   <%= f.hidden_field :created_at, value: entry_date %>
+  <%= f.hidden_field :user_id %>
   <div class="row">
     <div class="col-11">
       <%= f.select :project_id, options_from_collection_for_select(Project.all, 'id', 'to_s', time_entry.project_id), {}, { class: 'form-select' } %>

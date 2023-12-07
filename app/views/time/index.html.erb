@@ -2,7 +2,7 @@
   <div class="col-1 text-center">
     <button
       class="btn btn-lg btn-primary mt-5"
-      hx-get="<%= new_time_entry_path %>"
+      hx-get="<%= new_time_entry_path(entry_date: view.start_on) %>"
       hx-swap="innerHTML"
       hx-target="#new-entry"
     >
@@ -59,7 +59,7 @@
         </table>
       </div>
       <div class="col-2 text-end">
-        Week total<br><small><%= view.total_duration %></small>
+        Week total<br><small><%= view.week_total_duration %></small>
       </div>
     </div>
 

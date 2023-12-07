@@ -1,0 +1,29 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th>Group</th>
+    <th>Project</th>
+    <th>Person</th>
+    <th>Hours</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% view.entries.each do |entry| %>
+    <tr>
+      <td><%= entry.group %></td>
+      <td>
+        <%= entry.project %>
+        <% if entry.description %><br><small class="text-muted"><%= entry.description %></small><% end %>
+      </td>
+      <td><%= entry.user %></td>
+      <td><%= entry.duration %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td colspan="4" class="text-right">
+      <strong>Total</strong>
+      <%= view.total_duration %>
+    </td>
+  </tr>
+  </tbody>
+</table>

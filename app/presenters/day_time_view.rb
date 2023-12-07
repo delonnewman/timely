@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DayView < TimeView
+class DayTimeView < TimeView
   def name
     'Day'
   end

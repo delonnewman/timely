@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class WeekView < TimeView
+class WeekTimeView < TimeView
   def name
     'Week'
   end

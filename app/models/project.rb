@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# TODO: Add #billable
+
 # The organizing unit for time entries
 class Project < ApplicationRecord
   validates :name, presence: true, length: { minimum: 5, maximum: 50 }
@@ -12,8 +14,16 @@ class Project < ApplicationRecord
   accepts_nested_attributes_for :pay_rate
 
   def to_s
-    return name unless group
+    name
+  end
 
-    "#{group.name}: #{name}"
+  def total_duration
+    time_entries.select(:minutes, :project_id).map(&:duration).reduce(:+)
+  end
+
+  def gross_income
+    return 0 unless billable?
+
+    pay_rate * total_duration
   end
 end
