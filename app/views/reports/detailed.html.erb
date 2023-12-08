@@ -1,29 +1,44 @@
-<table class="table">
-  <thead>
-  <tr>
-    <th>Group</th>
-    <th>Project</th>
-    <th>Person</th>
-    <th>Hours</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% view.entries.each do |entry| %>
+<%= render 'reports/nav' %>
+
+<div class="container">
+  <div>
+    <h2>
+      Detailed Report:
+      <%= report.start_on.strftime("%m/%d/%Y") %>&mdash;<%= report.end_on.strftime("%m/%d/%Y") %>
+    </h2>
+  </div>
+  <div class="me-5 mb-5">
+    <small>Total hours</small><br>
+    <div class="h4"><%= report.total_duration %></div>
+  </div>
+  <table class="table">
+    <thead>
     <tr>
-      <td><%= entry.group %></td>
-      <td>
-        <%= entry.project %>
-        <% if entry.description %><br><small class="text-muted"><%= entry.description %></small><% end %>
-      </td>
-      <td><%= entry.user %></td>
-      <td><%= entry.duration %></td>
+      <th>Group</th>
+      <th>Project</th>
+      <th>Person</th>
+      <th>Hours</th>
     </tr>
-  <% end %>
-  <tr>
-    <td colspan="4" class="text-right">
-      <strong>Total</strong>
-      <%= view.total_duration %>
-    </td>
-  </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+    <% report.entries.each do |entry| %>
+      <tr>
+        <td><%= entry.group %></td>
+        <td>
+          <%= entry.project %>
+          <% if entry.description %><br><small class="text-muted"><%= entry.description %></small>
+          <% end %>
+        </td>
+        <td><%= entry.user %></td>
+        <td><%= entry.duration %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="4" class="text-right">
+        <strong>Total</strong>
+        <%= report.total_duration %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

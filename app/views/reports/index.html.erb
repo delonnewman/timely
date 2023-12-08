@@ -1,3 +1,5 @@
+<%= render 'reports/nav' %>
+
 <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom">
   <div class="d-flex align-items-center">
     <% if report.symmetric? %>
@@ -22,18 +24,41 @@
   </div>
 </div>
 
-<div class="container d-flex">
+<div class="container d-flex mt-4">
   <div class="me-5">
     <small>Total hours</small><br>
     <div class="h4"><%= report.total_duration %></div>
   </div>
-  <div class="me-5">
-    <small>Billable Percentage</small><br>
-    <div class="h4"><%= number_to_percentage report.billable_percentage, precision: 0 %></div>
+  <div class="ms-5 me-5">
+    <div class="chart">
+      <div class="donut" data-ratio="<%= report.billable_ratio %>">
+        <div class="donut-hole">
+          <div class="donut-label h4">
+            <%= number_to_percentage report.billable_percentage, precision: 0 %>
+          </div>
+        </div>
+      </div>
+      <div class="chart-legend">
+        <div>
+          <div class="chart-segment chart-segment-1"></div>
+          <div class="chart-label">Billable</div>
+        </div>
+        <div>
+          <div class="chart-segment chart-segment-2"></div>
+          <div class="chart-label">Non-billable</div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div>
+  <div class="ms-5">
     <small>Billable Amount</small><br>
     <div class="h4"><%= number_to_currency report.billable_amount %></div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-end">
+  <div>
+    <%= link_to 'Detailed Report', detailed_reports_path(start_on: report.start_on, end_on: report.end_on), class: 'btn btn-sm btn-link' %>
   </div>
 </div>
 

@@ -19,11 +19,11 @@ class WeekReportView < SymmetricReportView
   end
 
   def prev_start_date
-    start_on.next_week.at_beginning_of_week
+    start_on.prev_week.at_beginning_of_week
   end
 
   def prev_end_date
-    end_on.next_week.at_end_of_week
+    end_on.prev_week.at_end_of_week
   end
 
   def next?

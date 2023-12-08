@@ -15,13 +15,17 @@ class Report
   end
 
   def self.billable_percentage(entry_ids)
+    billable_ratio(entry_ids) * 100
+  end
+
+  def self.billable_ratio(entry_ids)
     data         = billable_data(entry_ids)
     billable     = (data[true] || 0.0).to_f
     non_billable = (data[false] || 0.0).to_f
     total        = billable + non_billable
     return 0.0 if total.zero?
 
-    (billable / total) * 100
+    billable / total
   end
 
   def self.billable_data(entry_ids)
@@ -63,5 +67,9 @@ class Report
 
   def billable_percentage
     self.class.billable_percentage(entry_ids)
+  end
+
+  def billable_ratio
+    self.class.billable_ratio(entry_ids)
   end
 end

@@ -1,0 +1,62 @@
+.chart {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    --chart-segment-1-color: #376bdd;
+    --chart-segment-2-color: #86b1f1;
+}
+
+.chart .donut {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+
+    background: conic-gradient(
+        var(--chart-segment-1-color) 0deg 0deg,
+        var(--chart-segment-2-color) 0deg 360deg
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart .donut-hole {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart .donut-label {
+
+}
+
+.chart-legend {
+    margin-left: 20px;
+}
+
+.chart-legend div {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.chart-legend .chart-segment {
+    width: 15px; height: 15px;
+    border-radius: 20%;
+}
+
+.chart-legend .chart-label {
+    margin-left: 5px;
+}
+
+.chart-legend .chart-segment-1 {
+    background: var(--chart-segment-1-color);
+}
+
+.chart-legend .chart-segment-2 {
+    background: var(--chart-segment-2-color);
+}

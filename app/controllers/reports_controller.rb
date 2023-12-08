@@ -9,7 +9,7 @@ class ReportsController < ApplicationController
   end
 
   def detailed
-    render :detailed, locals: { view: report_view }
+    render :detailed, locals: { report: report_view }
   end
 
   private
