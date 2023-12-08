@@ -1,6 +1,6 @@
 <%= render 'reports/nav' %>
 
-<div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom">
+<div class="d-flex align-items-center justify-content-between mb-5 pb-3 border-bottom">
   <div class="d-flex align-items-center">
     <% if report.symmetric? %>
       <div class="btn-group me-2" role="group">
@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<div class="container d-flex mt-4">
+<div class="container d-flex mt-4 mb-4">
   <div class="me-5">
     <small>Total hours</small><br>
     <div class="h4"><%= report.total_duration %></div>
@@ -62,10 +62,16 @@
   </div>
 </div>
 
+
+<nav class="nav nav-underline border-bottom">
+  <%= nav_item 'Groups', report_tab_path(report, tab: 'groups'), active: report.tab == 'groups' %>
+  <%= nav_item 'Projects', report_tab_path(report, tab: 'projects'), active: report.tab == 'projects' %>
+</nav>
+
 <table class="table mt-4">
   <thead>
     <tr>
-      <th style="width:40%">Group</th>
+      <th style="width:40%">Name</th>
       <th style="width:40%">Hours</th>
       <th style="width:20%">Billable Hours</th>
     </tr>

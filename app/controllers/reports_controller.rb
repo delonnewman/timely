@@ -2,7 +2,7 @@
 
 class ReportsController < ApplicationController
   # TODO: move this default to user / account settings
-  DEFAULT_KIND = :semimonth
+  DEFAULT_KIND = :week
 
   def index
     render :index, locals: { report: report_view }
@@ -15,7 +15,7 @@ class ReportsController < ApplicationController
   private
 
   def report_view
-    ReportView[kind_key].build(current_user, start_on:, end_on:)
+    ReportView[kind_key].build(current_user, start_on:, end_on:, tab:)
   end
 
   def kind_key
@@ -28,5 +28,9 @@ class ReportsController < ApplicationController
 
   def end_on
     params[:end_on].presence
+  end
+
+  def tab
+    params.fetch(:tab, 'groups')
   end
 end

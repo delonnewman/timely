@@ -2,31 +2,38 @@
 
 # Present report data for the user within the start and end dates.
 class ReportView
-  attr_reader :user, :start_on, :end_on
+  attr_reader :user, :start_on, :end_on, :tab
 
-  delegate :billable_amount, :billable_percentage, :billable_ratio, :billable_duration, :non_billable_duration, to: :report
-  delegate :total_duration, :entries, :entries_by_group_name, to: :report
+  delegate :billable_amount, :billable_percentage, :billable_ratio, to: :report
+  delegate :total_duration, :billable_duration, :non_billable_duration, to: :report
+  delegate :entries, :entries_by_group_name, :entries_by_project_name, to: :report
 
   def self.[](kind)
     return self if [:custom, 'custom'].include?(kind)
 
+    # FIXME: this isn't secure it should lookup by kind in a hash map
     "#{kind}_report_view".classify.constantize
   end
 
-  def self.build(user, start_on: nil, end_on: nil)
+  def self.build(user, tab:, start_on: nil, end_on: nil)
     return current(user) unless start_on && end_on
 
-    new(user, start_on:, end_on:)
+    new(user, start_on:, end_on:, tab:)
   end
 
   def self.current(user)
     raise NotImplementedError
   end
 
-  def initialize(user, start_on:, end_on:)
+  def initialize(user, start_on:, end_on:, tab: 'groups')
     @user     = user
     @start_on = start_on.to_date
     @end_on   = end_on.to_date
+    @tab      = tab
+  end
+
+  def tab?(tab_name)
+    tab == tab_name
   end
 
   def title
@@ -73,9 +80,13 @@ class ReportView
   end
 
   def entry_groupings
-    entries_by_group_name.lazy.map do |(name, entries)|
+    grouping.lazy.map do |(name, entries)|
       ReportGroupingView.new(name, entries)
     end
+  end
+
+  def grouping
+    tab?('projects') ? entries_by_project_name : entries_by_group_name
   end
 
   def symmetric?

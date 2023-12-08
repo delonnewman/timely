@@ -2,13 +2,19 @@
 
 class TimeEntriesController < ApplicationController
   def new
-    render partial: 'new', locals: { entry_date: }
+    entry = TimeEntry.new
+
+    render partial: 'new', locals: { time_entry: entry, entry_date: }
   end
 
   def create
-    entry = TimeEntry.create(time_entry_params)
+    entry = TimeEntry.new(time_entry_params)
 
-    render partial: 'show', locals: { time_entry: entry, entry_date: }
+    if entry.save
+      render partial: 'show', locals: { time_entry: entry, entry_date: }
+    else
+      render partial: 'new', locals: { time_entry: entry, entry_date: }
+    end
   end
 
   def show
@@ -42,6 +48,6 @@ class TimeEntriesController < ApplicationController
   end
 
   def time_entry_params
-    params.require(:time_entry).permit(:duration, :description, :project_id, :created_at)
+    params.require(:time_entry).permit(:duration, :description, :project_id, :created_at, :user_id)
   end
 end

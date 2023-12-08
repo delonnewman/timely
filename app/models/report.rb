@@ -57,6 +57,10 @@ class Report
     entries.includes(project: :group).group_by { |e| e.group.name }
   end
 
+  def entries_by_project_name
+    entries.includes(:project).group_by { |e| e.project.name }
+  end
+
   def total_duration
     @total_duration ||= entries.select(:minutes, :project_id).map(&:duration).reduce(Duration.zero, :+).round
   end
