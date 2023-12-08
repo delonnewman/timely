@@ -1,3 +1,6 @@
+[![Ruby on Rails CI](https://github.com/delonnewman/timely/actions/workflows/rubyonrails.yml/badge.svg)](https://github.com/delonnewman/timely/actions/workflows/rubyonrails.yml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9851a057223012091109/maintainability)](https://codeclimate.com/github/delonnewman/timely/maintainability)
+
 # Timely
 
 A simple application for time tracking and reporting
