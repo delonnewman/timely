@@ -1,7 +1,15 @@
-export function adjustDonutChart(element, ratio) {
+function adjustDonutChart(element, ratio) {
   const degrees = ratio * 360;
-  console.log("ratio", ratio)
 
-  element.style.background = `conic-gradient(red 0deg ${degrees}deg, green ${degrees}deg 360deg)`;
+  element.style.background = `conic-gradient(
+    var(--chart-segment-1-color) 0deg ${degrees}deg,
+    var(--chart-segment-2-color) ${degrees}deg 360deg
+  )`;
 }
 
+const element = document.querySelector('.donut');
+
+if (element) {
+  const ratio = parseFloat(element.dataset.ratio);
+  adjustDonutChart(element, ratio);
+}

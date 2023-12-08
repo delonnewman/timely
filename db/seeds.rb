@@ -35,6 +35,16 @@ timely.time_entries.create!(
       duration: '02:17',
       created_at: Date.new(2023, 12, 5)
     },
+    {
+      user: delon,
+      duration: '07:13',
+      created_at: Date.new(2023, 12, 6)
+    },
+    {
+      user: delon,
+      duration: '04:31',
+      created_at: Date.new(2023, 12, 7)
+    },
   ]
 )
 
@@ -55,6 +65,11 @@ learning.time_entries.create!(
       user: delon,
       duration: '03:45',
       created_at: Date.new(2023, 11, 30)
+    },
+    {
+      user: delon,
+      duration: '00:52',
+      created_at: Date.new(2023, 12, 6)
     }
   ]
 )

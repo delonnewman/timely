@@ -57,8 +57,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_27_184822) do
     t.bigint "user_id", null: false
     t.integer "minutes", null: false
     t.string "description"
+    t.boolean "invoiced", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["invoiced"], name: "index_time_entries_on_invoiced"
     t.index ["minutes"], name: "index_time_entries_on_minutes"
     t.index ["project_id"], name: "index_time_entries_on_project_id"
     t.index ["user_id"], name: "index_time_entries_on_user_id"

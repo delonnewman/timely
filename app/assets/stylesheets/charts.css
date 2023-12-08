@@ -51,6 +51,7 @@
 
 .chart-legend .chart-label {
     margin-left: 5px;
+    white-space: nowrap;
 }
 
 .chart-legend .chart-segment-1 {

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: Add #billable
-
 # The organizing unit for time entries
 class Project < ApplicationRecord
   validates :name, presence: true, length: { minimum: 5, maximum: 50 }

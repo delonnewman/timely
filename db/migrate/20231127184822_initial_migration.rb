@@ -78,8 +78,9 @@ class InitialMigration < ActiveRecord::Migration[7.1]
       t.integer :minutes, null: false, index: true
       t.string :description
 
+      t.boolean :invoiced, null: false, index: true, default: false
+
       t.timestamps
     end
-
   end
 end

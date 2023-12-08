@@ -4,8 +4,8 @@
 class ReportView
   attr_reader :user, :start_on, :end_on
 
-  delegate :total_duration, :billable_amount, :billable_percentage, :billable_ratio, to: :report
-  delegate :entries, :entries_by_group_name, to: :report
+  delegate :billable_amount, :billable_percentage, :billable_ratio, :billable_duration, :non_billable_duration, to: :report
+  delegate :total_duration, :entries, :entries_by_group_name, to: :report
 
   def self.[](kind)
     return self if [:custom, 'custom'].include?(kind)
