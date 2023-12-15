@@ -32,7 +32,7 @@ class Duration
 
   # Parse duration from string of the form "HH:MM"
   def self.parse(string)
-    raise ParseError, "invalid format expected HH:MM, got #{string.inspect}" unless string =~ /\d\d:\d\d/
+    raise ParseError, "invalid format expected HH:MM, got #{string.inspect}" unless string =~ /\d{1,2}:\d\d/
 
     hour, min = string.split(':')
     new((hour.to_i * 60) + min.to_i)
