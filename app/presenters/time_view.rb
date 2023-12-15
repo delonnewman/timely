@@ -24,8 +24,12 @@ class TimeView
     start_at.to_date - 7
   end
 
+  def today?
+    same_date?(Date.today)
+  end
+
   def same_date?(date)
-    start_at.to_date == date
+    ref_date == date
   end
 
   def date_range
@@ -53,6 +57,7 @@ class TimeView
       .includes(project: :group)
       .where(project_id: project_ids)
       .where('created_at BETWEEN ? AND ?', start_at, end_at)
+      .order(minutes: :desc)
   end
 
   def start_at

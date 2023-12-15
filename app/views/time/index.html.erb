@@ -36,7 +36,9 @@
           <% end %>
         </div>
         <h2 class="me-2 mb-0"><%= formatted_time view %></h2>
-        <%= link_to 'Return to today', time_path(Date.today, view: view.name) %>
+        <% unless view.today? %>
+          <%= link_to 'Return to today', time_path(Date.today, view: view.name) %>
+        <% end %>
       </div>
 
       <div class="col-10">
