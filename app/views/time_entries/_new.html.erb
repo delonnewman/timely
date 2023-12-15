@@ -3,7 +3,7 @@
   <%= f.hidden_field :user_id, value: current_user.id %>
   <div class="row">
     <div class="col-11">
-      <%= f.select :project_id, options_from_collection_for_select(Project.all, 'id', 'to_s'), {}, { class: 'form-select' } %>
+      <%= f.select :project_id, options_from_collection_for_select(current_user.projects, 'id', 'name_with_group'), {}, { class: 'form-select' } %>
       <% if time_entry.errors[:project_id] %><div class="invalid-feedback"><%= time_entry.errors[:project_id] %></div><% end %>
       <%= f.text_area :description, placeholder: 'Notes (optional)', class: 'form-control mt-1' %>
     </div>

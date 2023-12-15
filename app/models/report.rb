@@ -58,7 +58,7 @@ class Report
   end
 
   def entries_by_project_name
-    entries.includes(:project).group_by { |e| e.project.name }
+    entries.includes(project: :group).group_by { |e| e.project.to_s(:with_group) }
   end
 
   def total_duration
@@ -66,11 +66,23 @@ class Report
   end
 
   def billable_duration
-    entries.joins(:project).select(:minutes, :project_id).where('projects.billable = true').map(&:duration).reduce(Duration.zero, :+).round
+    entries
+      .joins(:project)
+      .select(:minutes, :project_id)
+      .where('projects.billable = true')
+      .map(&:duration)
+      .reduce(Duration.zero, :+)
+      .round
   end
 
   def non_billable_duration
-    entries.joins(:project).select(:minutes, :project_id).where('projects.billable = false').map(&:duration).reduce(Duration.zero, :+).round
+    entries
+      .joins(:project)
+      .select(:minutes, :project_id)
+      .where('projects.billable = false')
+      .map(&:duration)
+      .reduce(Duration.zero, :+)
+      .round
   end
 
   def billable_amount
