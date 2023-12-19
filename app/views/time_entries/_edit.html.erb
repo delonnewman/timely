@@ -29,7 +29,8 @@
     </button>
     <button
       class="btn btn-sm btn-link text-danger"
-      hx-delete="<%= time_entry_path(time_entry) %>"
+      hx-confirm="Are you sure you want to delete this entry?"
+      hx-delete="<%= time_entry_path(time_entry, entry_date: time_entry.created_at.to_date) %>"
       hx-swap="outerHTML"
       hx-target="#entry-<%= time_entry.id %>"
       hx-vals='{"authenticity_token": "<%= session[:_csrf_token] %>"}'

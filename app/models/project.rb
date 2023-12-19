@@ -25,7 +25,7 @@ class Project < ApplicationRecord
   end
 
   def total_duration
-    time_entries.select(:minutes, :project_id).map(&:duration).reduce(Duration.zero, :+)
+    time_entries.select(:minutes, :project_id).map(&:duration).sum(Duration.zero)
   end
 
   def gross_income

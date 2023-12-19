@@ -62,26 +62,24 @@ class Report
   end
 
   def total_duration
-    @total_duration ||= entries.select(:minutes, :project_id).map(&:duration).reduce(Duration.zero, :+).round
+    @total_duration ||= entries.select(:minutes, :project_id).map(&:duration).sum(Duration.zero).round
   end
 
   def billable_duration
-    entries
-      .joins(:project)
-      .select(:minutes, :project_id)
-      .where('projects.billable = true')
-      .map(&:duration)
-      .reduce(Duration.zero, :+)
-      .round
+    duration_by_billability(billable: true)
   end
 
   def non_billable_duration
+    duration_by_billability(billable: false)
+  end
+
+  def duration_by_billability(billable:)
     entries
       .joins(:project)
       .select(:minutes, :project_id)
-      .where('projects.billable = false')
+      .where('projects.billable = ?', billable)
       .map(&:duration)
-      .reduce(Duration.zero, :+)
+      .sum(Duration.zero)
       .round
   end
 

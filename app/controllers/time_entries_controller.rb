@@ -34,7 +34,11 @@ class TimeEntriesController < ApplicationController
   def destroy
     time_entry.destroy
 
-    render inline: '' # TODO: render empty if there are not more entries on this date
+    if no_entries?
+      render partial: 'time_entries/empty'
+    else
+      render inline: ''
+    end
   end
 
   private
@@ -43,8 +47,14 @@ class TimeEntriesController < ApplicationController
     TimeEntry.find(params[:id])
   end
 
+  def no_entries?
+    TimeEntry
+      .where('created_at between ? and ?', entry_date.at_beginning_of_day, entry_date.at_end_of_day)
+      .empty?
+  end
+
   def entry_date
-    params[:entry_date] || Date.today.to_s
+    Date.parse(params[:entry_date] || Date.today.to_s)
   end
 
   def time_entry_params

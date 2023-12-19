@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
+# Presents project data in time sequence
 class TimeView
+  delegate :empty?, :exists?, :none?, to: :entries
+
   def self.[](name)
     "#{name}_time_view".classify.constantize
   end
@@ -49,7 +52,7 @@ class TimeView
   end
 
   def duration(start_at, end_at)
-    query(start_at, end_at).map(&:duration).reduce(:+) || Duration.zero
+    query(start_at, end_at).map(&:duration).sum(Duration.zero)
   end
 
   def query(start_at, end_at)

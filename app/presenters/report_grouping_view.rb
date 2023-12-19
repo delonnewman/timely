@@ -16,7 +16,7 @@ class ReportGroupingView
   end
 
   def duration
-    entries.map(&:round).reduce(Duration.zero, :+)
+    entries.map(&:round).sum(Duration.zero)
   end
 
   def billable_amount?
