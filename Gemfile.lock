@@ -1,9 +1,3 @@
-GIT
-  remote: https://github.com/delonnewman/time-of-day.git
-  revision: 1ff568a54958849f3017a9b57c35590e4d5ca935
-  specs:
-    time-of-day (0.2.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -393,7 +387,6 @@ DEPENDENCIES
   rubocop-rake
   rubocop-rspec
   sprockets-rails
-  time-of-day!
   web-console
   yard
   yard-activerecord

@@ -28,7 +28,6 @@ gem 'oj'
 # Language Extentions
 gem 'invokable'
 gem 'memo_wise'
-gem 'time-of-day', github: 'delonnewman/time-of-day'
 
 # Data
 gem 'faker'
