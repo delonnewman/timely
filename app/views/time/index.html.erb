@@ -56,7 +56,7 @@
         </table>
       </div>
       <div class="col-2 text-end">
-        Week total<br><small><%= view.week_total_duration %></small>
+        <%= render 'week_duration', date: view.ref_date, duration: view.week_total_duration %>
       </div>
     </div>
 

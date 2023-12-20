@@ -6,14 +6,18 @@ class TimeController < ApplicationController
   end
 
   def day_duration
+    duration = view.date_totals[date]
+
     render partial: 'day_duration', locals: { duration:, date: }
   end
 
-  private
+  def week_duration
+    duration = view.week_total_duration
 
-  def duration
-    view.date_totals[date]
+    render partial: 'week_duration', locals: { duration:, date: }
   end
+
+  private
 
   def view
     TimeView[view_key].new(current_user.project_ids, params)

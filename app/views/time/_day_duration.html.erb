@@ -1,7 +1,7 @@
 <div
   id="day-duration-<%= date %>"
   hx-trigger="timely:day-duration-changed from:body"
-  hx-get="<%= time_duration_path(date:) %>"
+  hx-get="<%= time_day_duration_path(date:) %>"
   hx-swap="outerHTML"
   hx-target="this"
 >

@@ -1,0 +1,9 @@
+<div
+  id="day-duration-<%= date %>"
+  hx-trigger="timely:day-duration-changed from:body"
+  hx-get="<%= time_week_duration_path(date:) %>"
+  hx-swap="outerHTML"
+  hx-target="this"
+>
+  Week total<br><small><%= duration %></small>
+</div>
