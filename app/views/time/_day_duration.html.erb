@@ -1,0 +1,14 @@
+<div
+  id="day-duration-<%= date %>"
+  hx-trigger="timely:day-duration-changed from:body"
+  hx-get="<%= time_duration_path(date:) %>"
+  hx-swap="outerHTML"
+  hx-target="this"
+>
+  <small>
+    <%= duration %>
+    <% unless duration.zero? %>
+      <i class="bi bi-clock"></i>
+    <% end %>
+  </small>
+</div>

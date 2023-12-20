@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   get '/time', to: 'time#index'
   get '/time/:view/:year/:month/:day', to: 'time#index'
+  get '/time/duration', to: 'time#day_duration'
 
   namespace 'api/v1', as: 'api_v1' do
     resources :groups

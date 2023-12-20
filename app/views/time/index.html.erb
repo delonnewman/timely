@@ -48,12 +48,7 @@
             <td class="pb-2 <%= 'selected' if view.same_date?(date) %>">
               <%= link_to time_path(date, view: view.name), style: 'display:block' do %>
                 <strong><%= date.strftime('%a') %></strong><br>
-                <small>
-                  <%= duration %>
-                  <% unless duration.zero? %>
-                    <i class="bi bi-clock"></i>
-                  <% end %>
-                </small>
+                <%= render 'day_duration', date:, duration: %>
               <% end %>
             </td>
           <% end %>
