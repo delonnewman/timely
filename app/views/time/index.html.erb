@@ -27,7 +27,7 @@
   <div class="col-11">
     <div class="row border-bottom time-header">
       <div class="d-flex align-items-center mb-3">
-        <div class="btn-group me-2" role="group">
+        <div class="btn-group me-2" role="group" hx-boost="true">
           <%= link_to time_path(view.prev_week, view: view.name), class: 'btn btn-sm btn-outline-secondary' do %>
             <i class="bi bi-arrow-left"></i>
           <% end %>
@@ -45,7 +45,7 @@
         <table class="w-100">
           <thead>
           <% view.date_totals.each do |date, duration| %>
-            <td class="pb-2 <%= 'selected' if view.same_date?(date) %>">
+            <td class="pb-2 <%= 'selected' if view.same_date?(date) %>" hx-boost="true">
               <%= link_to time_path(date, view: view.name), style: 'display:block' do %>
                 <strong><%= date.strftime('%a') %></strong><br>
                 <%= render 'day_duration', date:, duration: %>

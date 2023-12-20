@@ -10,9 +10,10 @@
     width: 80px; height: 80px;
     border-radius: 50%;
 
+    --chart-degrees: 0;
     background: conic-gradient(
-        var(--chart-segment-1-color) 0deg 0deg,
-        var(--chart-segment-2-color) 0deg 360deg
+        var(--chart-segment-1-color) 0deg var(--chart-degrees),
+        var(--chart-segment-2-color) var(--chart-degrees) 360deg
     );
 
     display: flex;

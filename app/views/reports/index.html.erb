@@ -3,7 +3,7 @@
 <div class="d-flex align-items-center justify-content-between mb-5 pb-3 border-bottom">
   <div class="d-flex align-items-center">
     <% if report.symmetric? %>
-      <div class="btn-group me-2" role="group">
+      <div class="btn-group me-2" role="group" hx-boost="true">
         <%= link_to prev_report_path(report), class: report_nav_classes(report) do %>
           <i class="bi bi-arrow-left"></i>
         <% end %>
@@ -31,7 +31,7 @@
   </div>
   <div class="ms-5 me-5">
     <div class="chart">
-      <div class="donut" data-ratio="<%= report.billable_ratio %>">
+      <div class="donut" style="--chart-degrees:<%= (report.billable_ratio * 360).round %>deg">
         <div class="donut-hole">
           <div class="donut-label h4">
             <%= number_to_percentage report.billable_percentage, precision: 0 %>
@@ -57,13 +57,13 @@
 </div>
 
 <div class="d-flex justify-content-end">
-  <div>
+  <div hx-boost="true">
     <%= link_to 'Detailed Report', detailed_reports_path(start_on: report.start_on, end_on: report.end_on), class: 'btn btn-sm btn-link' %>
   </div>
 </div>
 
 
-<nav class="nav nav-underline border-bottom">
+<nav class="nav nav-underline border-bottom" hx-boost="true">
   <%= nav_item 'Groups', report_tab_path(report, tab: 'groups'), active: report.tab == 'groups' %>
   <%= nav_item 'Projects', report_tab_path(report, tab: 'projects'), active: report.tab == 'projects' %>
 </nav>

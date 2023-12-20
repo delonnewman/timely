@@ -33,7 +33,6 @@
       hx-delete="<%= time_entry_path(time_entry, entry_date: time_entry.created_at.to_date) %>"
       hx-swap="outerHTML"
       hx-target="#entry-<%= time_entry.id %>"
-      hx-vals='{"authenticity_token": "<%= session[:_csrf_token] %>"}'
     >
       Delete
     </button>
