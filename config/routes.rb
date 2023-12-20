@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get '/time/week/duration', to: 'time#week_duration'
 
   namespace 'api/v1', as: 'api_v1' do
+    resources :teams
     resources :groups
     resources :projects
     resources :time_entries
