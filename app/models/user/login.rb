@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Generate user logins
-class Login
+class User::Login
   def initialize(name:, email:)
     @name = name.presence
     @email = email.presence
