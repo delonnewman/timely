@@ -27,4 +27,14 @@ class User < ApplicationRecord
   def earliest_entry_created_at
     time_entries.minimum(:created_at)
   end
+
+  def gravatar_url
+    hash = Digest::MD5.hexdigest(email)
+
+    "https://www.gravatar.com/avatar/#{hash}"
+  end
+
+  def valid_email?
+    email.present? && !email.end_with?('@example.com')
+  end
 end
