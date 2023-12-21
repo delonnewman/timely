@@ -15,7 +15,7 @@ class ReportsController < ApplicationController
   private
 
   def report_view
-    ReportView[kind_key].build(current_user, start_on:, end_on:, tab:)
+    ReportView[kind_key].build(current_user.project_ids, start_on:, end_on:, tab:)
   end
 
   def kind_key

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# Present report data for the user within the start and end dates.
+# Present report data for the projects within the start and end dates.
 class ReportView
-  attr_reader :user, :start_on, :end_on, :tab
+  attr_reader :project_ids, :start_on, :end_on, :tab
 
   delegate :billable_amount, :billable_percentage, :billable_ratio, to: :report
   delegate :total_duration, :billable_duration, :non_billable_duration, to: :report
@@ -15,21 +15,21 @@ class ReportView
     "#{kind}_report_view".classify.constantize
   end
 
-  def self.build(user, tab:, start_on: nil, end_on: nil)
-    return current(user) unless start_on && end_on
+  def self.build(project_ids, tab:, start_on: nil, end_on: nil)
+    return current(project_ids) unless start_on && end_on
 
-    new(user, start_on:, end_on:, tab:)
+    new(project_ids, start_on:, end_on:, tab:)
   end
 
-  def self.current(user)
+  def self.current(project_ids)
     raise NotImplementedError
   end
 
-  def initialize(user, start_on:, end_on:, tab: 'groups')
-    @user     = user
-    @start_on = start_on.to_date
-    @end_on   = end_on.to_date
-    @tab      = tab
+  def initialize(project_ids, start_on:, end_on:, tab: 'groups')
+    @project_ids = project_ids
+    @start_on    = start_on.to_date
+    @end_on      = end_on.to_date
+    @tab         = tab
   end
 
   def tab?(tab_name)
@@ -56,7 +56,7 @@ class ReportView
   end
 
   def report
-    @report ||= Report.new(user, start_at:, end_at:)
+    @report ||= Report.new(project_ids, start_at:, end_at:)
   end
 
   def start_at

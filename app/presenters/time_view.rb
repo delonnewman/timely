@@ -8,8 +8,8 @@ class TimeView
     "#{name}_time_view".classify.constantize
   end
 
-  def initialize(project_ids, params)
-    @project_ids = project_ids
+  def initialize(user, params)
+    @user = user
     @params = params
   end
 
@@ -58,7 +58,7 @@ class TimeView
   def query(start_at, end_at)
     TimeEntry
       .includes(project: :group)
-      .where(project_id: project_ids)
+      .where(user_id: user.id)
       .where('created_at BETWEEN ? AND ?', start_at, end_at)
       .order(minutes: :desc)
   end
@@ -91,5 +91,5 @@ class TimeView
 
   private
 
-  attr_reader :project_ids, :params
+  attr_reader :user, :params
 end

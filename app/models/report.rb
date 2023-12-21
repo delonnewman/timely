@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-# A generated report for a user
+# A generated report for the given projects
 class Report
-  attr_reader :user, :start_at, :end_at, :name
+  attr_reader :project_ids, :start_at, :end_at, :name
 
-  def self.this_week(user)
-    new(user, start_at: Date.today.at_beginning_of_week, end_at: Date.today.at_end_of_week)
+  def self.this_week(project_ids)
+    new(project_ids, start_at: Date.today.at_beginning_of_week, end_at: Date.today.at_end_of_week)
   end
 
   def self.billable_amount(entry_ids)
@@ -37,8 +37,8 @@ class Report
       .count
   end
 
-  def initialize(user, start_at:, end_at:, name: nil)
-    @user           = user
+  def initialize(project_ids, start_at:, end_at:, name: nil)
+    @project_ids    = project_ids
     @start_at       = start_at.at_beginning_of_day
     @end_at         = end_at.at_end_of_day
     @name           = name
@@ -46,7 +46,9 @@ class Report
   end
 
   def entries
-    user.time_entries.where('time_entries.created_at BETWEEN ? and ?', start_at, end_at)
+    TimeEntry
+      .where(project_id: project_ids)
+      .where('time_entries.created_at BETWEEN ? and ?', start_at, end_at)
   end
 
   def entry_ids

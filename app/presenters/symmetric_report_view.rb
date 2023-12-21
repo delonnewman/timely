@@ -3,8 +3,8 @@
 # An abstract class for report views that can move forward an backward in time by some symmetry
 # (e.g. week, month, quarter, year, etc.).  Subclasses should implement #next and #prev.
 class SymmetricReportView < ReportView
-  def self.current(user)
-    new(user, start_on: current_start_date, end_on: current_end_date)
+  def self.current(project_ids)
+    new(project_ids, start_on: current_start_date, end_on: current_end_date)
   end
 
   def self.current_start_date
@@ -28,7 +28,7 @@ class SymmetricReportView < ReportView
   end
 
   def next
-    self.class.new(user, start_on: next_start_date, end_on: next_end_date)
+    self.class.new(project_ids, start_on: next_start_date, end_on: next_end_date)
   end
 
   def next_start_date
@@ -40,7 +40,7 @@ class SymmetricReportView < ReportView
   end
 
   def prev
-    self.class.new(user, start_on: prev_start_date, end_on: prev_end_date)
+    self.class.new(project_ids, start_on: prev_start_date, end_on: prev_end_date)
   end
 
   def prev_start_date

@@ -20,7 +20,7 @@ class TimeController < ApplicationController
   private
 
   def view
-    TimeView[view_key].new(current_user.project_ids, params)
+    TimeView[view_key].new(current_user, params)
   end
 
   def view_key
