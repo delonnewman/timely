@@ -18,15 +18,16 @@ require 'action_view/railtie'
 Bundler.require(*Rails.groups)
 
 # Load application specific customizations
-require_relative '../lib/timely'
+require_relative '../lib/kindly'
 
-module Timely
+module Kindly
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
     config.time_zone = 'Mountain Time (US & Canada)'
 
-    config.hosts << 'timely.test'
+    config.hosts << 'kindly.test'
+    config.hosts << 'time.delonnewman.name'
 
     # Don't generate system test files.
     config.generators.system_tests = nil

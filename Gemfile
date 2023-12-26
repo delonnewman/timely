@@ -39,6 +39,9 @@ gem 'csv_builder'
 
 gem 'chartkick'
 
+# Deployment
+gem 'dockerfile-rails'
+
 group :development, :test do
   gem 'debug', platforms: %i[mri]
 

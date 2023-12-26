@@ -79,6 +79,7 @@ test:
 #
 production:
   <<: *default
-  database: timely_production
-  username: timely
-  password: <%= ENV["TIMELY_DATABASE_PASSWORD"] %>
+  database: kindly
+  username: kindly
+  host: localhost
+  password: <%= Rails.application.credentials[:database][:password] %>

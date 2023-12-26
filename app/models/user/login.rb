@@ -15,10 +15,10 @@ class User::Login
   end
 
   def from_email
-    Timely::Utils.slug(@email.split('@').first)
+    Kindly::Utils.slug(@email.split('@').first)
   end
 
   def from_name
-    Timely::Utils.slug(@name)
+    Kindly::Utils.slug(@name)
   end
 end

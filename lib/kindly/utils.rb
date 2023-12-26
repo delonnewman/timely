@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Timely
+module Kindly
   # A collection of utility functions for use within the application
   module Utils
     module_function
@@ -9,7 +9,7 @@ module Timely
     # @api public
     #
     # @example
-    #   Timely::Utils.slug("$%`Hey`there") # => "hey-there"
+    #   Kindly::Utils.slug("$%`Hey`there") # => "hey-there"
     #
     # @param [String] string
     # @param [String] delimiter
