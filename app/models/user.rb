@@ -4,7 +4,7 @@
 class User < ApplicationRecord
   belongs_to :team
   has_many :groups, through: :team
-  has_many :projects, through: :groups
+  has_many :projects, ->{ joins(:group).order('groups.name, projects.name') }, through: :groups
 
   has_many :time_entries
 

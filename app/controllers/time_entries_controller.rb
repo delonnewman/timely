@@ -2,16 +2,14 @@
 
 class TimeEntriesController < ApplicationController
   def new
-    entry = TimeEntry.new
-
-    render partial: 'new', locals: { time_entry: entry, entry_date: }
+    render partial: 'new', locals: { time_entry: TimeEntry.new, entry_date: }
   end
 
   def create
     entry = TimeEntry.new(time_entry_params)
 
     if entry.save
-      headers['HX-Trigger'] = 'timely:day-duration-changed'
+      day_duration_changed!
       render partial: 'show', locals: { time_entry: entry, entry_date: }
     else
       render partial: 'new', locals: { time_entry: entry, entry_date: }
@@ -27,15 +25,17 @@ class TimeEntriesController < ApplicationController
   end
 
   def update
-    time_entry.update(time_entry_params)
-    headers['HX-Trigger'] = 'timely:day-duration-changed'
-
-    render partial: 'show', locals: { time_entry:, entry_date: }
+    if time_entry.update(time_entry_params)
+      day_duration_changed!
+      render partial: 'show', locals: { time_entry:, entry_date: }
+    else
+      render partial: 'edit', locals: { time_entry:, entry_date: }
+    end
   end
 
   def destroy
     time_entry.destroy
-    headers['HX-Trigger'] = 'timely:day-duration-changed'
+    day_duration_changed!
 
     if no_entries?
       render partial: 'time_entries/empty'
@@ -45,6 +45,10 @@ class TimeEntriesController < ApplicationController
   end
 
   private
+
+  def day_duration_changed!
+    headers['HX-Trigger'] = 'timely:day-duration-changed'
+  end
 
   def time_entry
     TimeEntry.find(params[:id])

@@ -56,11 +56,11 @@ class Report
   end
 
   def entries_by_group_name
-    entries.includes(project: :group).group_by { |e| e.group.name }
+    entries.includes(project: :group).order('groups.name').group_by { |e| e.group.name }
   end
 
   def entries_by_project_name
-    entries.includes(project: :group).group_by { |e| e.project.to_s(:with_group) }
+    entries.includes(project: :group).order('groups.name, projects.name').group_by { |e| e.project.to_s(:with_group) }
   end
 
   def total_duration
