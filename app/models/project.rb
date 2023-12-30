@@ -11,6 +11,9 @@ class Project < ApplicationRecord
   has_one :pay_rate, dependent: :destroy
   accepts_nested_attributes_for :pay_rate
 
+  has_many :timers
+  has_many :invoices
+
   scope :grouped, -> { includes(:group).group_by { |p| p.group.name } }
 
   def to_s(spec = :name)

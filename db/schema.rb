@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_27_184822) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_30_020754) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,19 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_27_184822) do
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_groups_on_name", unique: true
     t.index ["team_id"], name: "index_groups_on_team_id"
+  end
+
+  create_table "invoices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "project_id", null: false
+    t.string "number", null: false
+    t.date "start_on", null: false
+    t.date "end_on", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["end_on"], name: "index_invoices_on_end_on"
+    t.index ["number"], name: "index_invoices_on_number"
+    t.index ["project_id"], name: "index_invoices_on_project_id"
+    t.index ["start_on"], name: "index_invoices_on_start_on"
   end
 
   create_table "pay_rates", force: :cascade do |t|
@@ -66,6 +79,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_27_184822) do
     t.index ["user_id"], name: "index_time_entries_on_user_id"
   end
 
+  create_table "timers", force: :cascade do |t|
+    t.uuid "project_id", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "ended_at", precision: nil
+    t.index ["project_id"], name: "index_timers_on_project_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.bigint "team_id", null: false
     t.string "name"
@@ -93,9 +113,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_27_184822) do
   end
 
   add_foreign_key "groups", "teams"
+  add_foreign_key "invoices", "projects"
   add_foreign_key "pay_rates", "projects"
   add_foreign_key "projects", "groups"
   add_foreign_key "time_entries", "projects"
   add_foreign_key "time_entries", "users"
+  add_foreign_key "timers", "projects"
   add_foreign_key "users", "teams"
 end
