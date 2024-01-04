@@ -1,9 +1,9 @@
 <div id="<%= new_project_id project.group.name %>">
-  <div class="card mb-3" style="width:360px">
+  <div class="card mb-3">
     <div class="card-body">
       <%= form_for project, url: projects_path do |f| %>
         <%= f.hidden_field :group_id  %>
-        <%= f.text_field :name, class: 'form-control' %>
+        <%= f.text_field :name, class: 'form-control', placeholder: "A fancy new project for #{project.group.name}" %>
         <div class="mt-2">
           <button
             class="btn btn-sm btn-primary"

@@ -11,30 +11,43 @@
     <small>Total hours</small><br>
     <div class="h4"><%= report.total_duration %></div>
   </div>
+
+  <div hx-boost="true">
+    <%= form_tag detailed_reports_path, method: :get do %>
+      <%= hidden_field_tag :start_on, report.start_on %>
+      <%= hidden_field_tag :end_on, report.end_on %>
+      <%= select_tag :grouping, options_for_report_groupings(report.grouping.name), class: 'form-select', onchange: 'this.parentElement.submit()' %>
+    <% end %>
+  </div>
+
   <table class="table">
     <thead>
     <tr>
-      <th>Group</th>
-      <th>Project</th>
-      <th>Person</th>
-      <th>Hours</th>
+      <% report.column_names.each do |name| %>
+        <th><%= name %></th>
+      <% end %>
     </tr>
     </thead>
     <tbody>
-    <% report.entries.each do |entry| %>
+    <% report.entry_groupings.each do |grouping| %>
       <tr>
-        <td><%= entry.group %></td>
-        <td>
-          <%= entry.project %>
-          <% if entry.description %><br><small class="text-muted"><%= entry.description %></small>
-          <% end %>
+        <td class="bg-light text-muted" colspan="<%= report.columns.count - 1 %>">
+          <%= grouping.name %>
         </td>
-        <td><%= entry.user %></td>
-        <td><%= entry.duration %></td>
+        <td class="bg-light text-muted text-end">
+          <%= grouping.duration %>
+        </td>
       </tr>
+      <% grouping.entries.each do |entry| %>
+        <tr>
+          <% report.column_methods.each do |method| %>
+            <td><%= entry.public_send(method) %></td>
+          <% end %>
+        </tr>
+      <% end %>
     <% end %>
     <tr>
-      <td colspan="4" class="text-right">
+      <td colspan="<%= report.columns.count %>" class="text-end">
         <strong>Total</strong>
         <%= report.total_duration %>
       </td>

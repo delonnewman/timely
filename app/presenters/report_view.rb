@@ -2,11 +2,13 @@
 
 # Present report data for the projects within the start and end dates.
 class ReportView
-  attr_reader :project_ids, :start_on, :end_on, :tab
+  attr_reader :project_ids, :start_on, :end_on, :grouping, :report
 
   delegate :billable_amount, :billable_percentage, :billable_ratio, to: :report
   delegate :total_duration, :billable_duration, :non_billable_duration, to: :report
   delegate :entries, :entries_by_group_name, :entries_by_project_name, to: :report
+
+  delegate :columns, :column_names, :column_methods, to: :grouping
 
   def self.[](kind)
     return self if [:custom, 'custom'].include?(kind)
@@ -15,25 +17,26 @@ class ReportView
     "#{kind}_report_view".classify.constantize
   end
 
-  def self.build(project_ids, tab:, start_on: nil, end_on: nil)
+  def self.build(project_ids, grouping:, start_on: nil, end_on: nil)
     return current(project_ids) unless start_on && end_on
 
-    new(project_ids, start_on:, end_on:, tab:)
+    new(project_ids, start_on:, end_on:, grouping:)
   end
 
   def self.current(project_ids)
     raise NotImplementedError
   end
 
-  def initialize(project_ids, start_on:, end_on:, tab: 'groups')
+  def initialize(project_ids, start_on:, end_on:, grouping: Report::Grouping.default_name)
     @project_ids = project_ids
     @start_on    = start_on.to_date
     @end_on      = end_on.to_date
-    @tab         = tab
+    @report      = Report.new(project_ids, start_at:, end_at:)
+    @grouping    = @report.build_grouping(grouping)
   end
 
-  def tab?(tab_name)
-    tab == tab_name
+  def grouping?(grouping_name)
+    @grouping.name == grouping_name
   end
 
   def title
@@ -53,10 +56,6 @@ class ReportView
 
   def formatted_end_date
     end_on.strftime('%d %b %Y')
-  end
-
-  def report
-    @report ||= Report.new(project_ids, start_at:, end_at:)
   end
 
   def start_at
@@ -80,13 +79,9 @@ class ReportView
   end
 
   def entry_groupings
-    grouping.lazy.map do |(name, entries)|
+    grouping.entries.lazy.map do |(name, entries)|
       ReportGroupingView.new(name, entries)
     end
-  end
-
-  def grouping
-    tab?('projects') ? entries_by_project_name : entries_by_group_name
   end
 
   def symmetric?

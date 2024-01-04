@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 ruby '3.2.2'
 
-# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.1.2'
 
 gem 'pg', '~> 1.1'
@@ -14,7 +13,7 @@ gem 'puma', '>= 5.0'
 gem 'importmap-rails'
 gem 'sprockets-rails'
 
-# Build JSON APIs with ease [https://github.com/rails/jbuilder]
+# JSON Views
 gem 'jbuilder'
 
 # Authentication
@@ -29,18 +28,16 @@ gem 'oj'
 gem 'invokable'
 gem 'memo_wise'
 
-# Data
-gem 'faker'
-
 # User data formats
 gem 'caxlsx'
 gem 'caxlsx_rails'
 gem 'csv_builder'
 
-gem 'chartkick'
-
 # Deployment
 gem 'dockerfile-rails'
+
+# HTTP Client
+gem 'faraday'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri]

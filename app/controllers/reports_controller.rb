@@ -5,17 +5,17 @@ class ReportsController < ApplicationController
   DEFAULT_KIND = :week
 
   def index
-    render :index, locals: { report: report_view }
+    render :index, locals: { report: }
   end
 
   def detailed
-    render :detailed, locals: { report: report_view }
+    render :detailed, locals: { report: }
   end
 
   private
 
-  def report_view
-    ReportView[kind_key].build(current_user.project_ids, start_on:, end_on:, tab:)
+  def report
+    ReportView[kind_key].build(current_user.project_ids, start_on:, end_on:, grouping:)
   end
 
   def kind_key
@@ -30,7 +30,7 @@ class ReportsController < ApplicationController
     params[:end_on].presence
   end
 
-  def tab
-    params.fetch(:tab, 'groups')
+  def grouping
+    params.fetch(:grouping, Report::Grouping.default_name)
   end
 end

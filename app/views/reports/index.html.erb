@@ -27,7 +27,7 @@
 <div class="container d-flex mt-4 mb-4">
   <div class="me-5">
     <small>Total hours</small><br>
-    <div class="h4"><%= report.total_duration %></div>
+    <div class="h4"><%= report.total_duration.in_hours %></div>
   </div>
   <div class="ms-5 me-5">
     <div class="chart">
@@ -41,11 +41,11 @@
       <div class="chart-legend">
         <div>
           <div class="chart-segment chart-segment-1"></div>
-          <div class="chart-label">Billable (<%= report.billable_duration %>)</div>
+          <div class="chart-label">Billable (<%= report.billable_duration.in_hours %>)</div>
         </div>
         <div>
           <div class="chart-segment chart-segment-2"></div>
-          <div class="chart-label">Non-billable (<%= report.non_billable_duration %>)</div>
+          <div class="chart-label">Non-billable (<%= report.non_billable_duration.in_hours %>)</div>
         </div>
       </div>
     </div>
@@ -62,13 +62,12 @@
   </div>
 </div>
 
-
 <nav class="nav nav-underline border-bottom" hx-boost="true">
-  <%= nav_item 'Groups', report_tab_path(report, tab: 'groups'), active: report.tab == 'groups' %>
-  <%= nav_item 'Projects', report_tab_path(report, tab: 'projects'), active: report.tab == 'projects' %>
+  <%= nav_item 'Groups', report_tab_path(report, grouping: 'group'), active: report.grouping?('group') %>
+  <%= nav_item 'Projects', report_tab_path(report, grouping: 'project'), active: report.grouping?('project') %>
 </nav>
 
-<table class="table mt-4">
+<table class="table table-striped mt-4">
   <thead>
     <tr>
       <th style="width:40%">Name</th>
@@ -80,7 +79,7 @@
     <% report.entry_groupings.each do |grouping| %>
        <tr>
          <td><%= grouping.name %></td>
-         <td><%= grouping.duration %></td>
+         <td><%= grouping.duration.in_hours %></td>
          <td>
            <% if grouping.billable_amount? %>
              <div class="row">

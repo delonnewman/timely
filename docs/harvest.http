@@ -1,0 +1,15 @@
+:personal-access-token := "2918658.pt.MMWRGkaBJzqRoxFog1JWMkMqHmaIez0rme3g1pEBr-WTNXvvqoht86deE-YIPMBwatfrd7rDjJTXcsgaIRpjEQ"
+:account-id := "498871"
+:user-id := 4082038
+
+GET https://api.harvestapp.com/api/v2/users/me.json
+Harvest-Account-ID: :account-id
+Authorization: Bearer :personal-access-token
+User-Agent: Kindly Scratch Console
+
+###
+
+GET https://api.harvestapp.com/api/v2/time_entries?user_id=:user-id
+Harvest-Account-ID: :account-id
+Authorization: Bearer :personal-access-token
+User-Agent: Kindly Scratch Console

@@ -51,16 +51,12 @@ class Report
       .where('time_entries.created_at BETWEEN ? and ?', start_at, end_at)
   end
 
+  def build_grouping(name)
+    Grouping.build(name:, report: self)
+  end
+
   def entry_ids
     @entry_ids ||= entries.pluck(:id)
-  end
-
-  def entries_by_group_name
-    entries.includes(project: :group).order('groups.name').group_by { |e| e.group.name }
-  end
-
-  def entries_by_project_name
-    entries.includes(project: :group).order('groups.name, projects.name').group_by { |e| e.project.to_s(:with_group) }
   end
 
   def total_duration

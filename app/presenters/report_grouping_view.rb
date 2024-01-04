@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class ReportGroupingView
-  attr_reader :name, :entries
+  attr_reader :name
+
+  delegate :count, :size, :length, to: :entries
 
   def initialize(name, entries)
     @name                = name
@@ -15,8 +17,14 @@ class ReportGroupingView
     @entry_ids ||= entries.map(&:id)
   end
 
+  def entries
+    @entries.lazy.map do |entry|
+      ReportGroupingEntryView.new(entry)
+    end
+  end
+
   def duration
-    entries.map(&:round).sum(Duration.zero)
+    @entries.map(&:round).sum(Duration.zero)
   end
 
   def billable_amount?

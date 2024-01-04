@@ -109,7 +109,6 @@ GEM
     caxlsx_rails (0.6.3)
       actionpack (>= 3.1)
       caxlsx (>= 3.0)
-    chartkick (5.0.1)
     concurrent-ruby (1.2.2)
     connection_pool (2.4.1)
     crass (1.0.6)
@@ -131,8 +130,11 @@ GEM
     drb (2.2.0)
       ruby2_keywords
     erubi (1.12.0)
-    faker (3.2.2)
-      i18n (>= 1.8.11, < 2)
+    faraday (2.8.1)
+      base64
+      faraday-net_http (>= 2.0, < 3.1)
+      ruby2_keywords (>= 0.0.4)
+    faraday-net_http (3.0.2)
     fast_blank (1.0.1)
     ffi (1.16.3)
     globalid (1.2.1)
@@ -363,13 +365,12 @@ DEPENDENCIES
   capybara
   caxlsx
   caxlsx_rails
-  chartkick
   csv_builder
   debug
   devise
   dockerfile-rails
   erubi
-  faker
+  faraday
   fast_blank
   importmap-rails
   invokable

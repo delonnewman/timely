@@ -17,8 +17,7 @@ require 'action_view/railtie'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-# Load application specific customizations
-require_relative '../lib/kindly'
+require_relative '../lib/core_ext/date'
 
 module Kindly
   class Application < Rails::Application
@@ -28,6 +27,8 @@ module Kindly
 
     config.hosts << 'kindly.test'
     config.hosts << 'time.delonnewman.name'
+
+    config.autoload_lib(ignore: %w[tasks assets core_ext])
 
     # Don't generate system test files.
     config.generators.system_tests = nil

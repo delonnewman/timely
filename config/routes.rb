@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :projects
   resources :time_entries, except: %i[index]
+  resources :groups, except: %i[index]
   resources :reports, only: %i[index]
   get '/reports/detailed', to: 'reports#detailed', as: 'detailed_reports'
 

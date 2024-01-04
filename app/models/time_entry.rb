@@ -11,13 +11,17 @@ class TimeEntry < ApplicationRecord
   validates :minutes, presence: true, numericality: true
   composed_of :duration, mapping: { minutes: :minutes }, converter: ->(duration) { Duration[duration] }
 
+  def billable_amount
+    return 0 unless billable?
+
+    pay_rate * round
+  end
+
   def round
     duration.round(rounding_factor)
   end
 
-  def billable_amount
-    return 0 unless billable?
-
-    pay_rate * duration.round(rounding_factor)
+  def date
+    created_at.to_date
   end
 end

@@ -2,7 +2,7 @@
 
 # A grouping of activities, for example a client name or some other description
 class Group < ApplicationRecord
-  validates :name, presence: true, uniqueness: true, length: { minimum: 5, maximum: 15 }
+  validates :name, presence: true, uniqueness: true, length: { maximum: 15 }
 
   belongs_to :team
 
