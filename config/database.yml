@@ -79,7 +79,7 @@ test:
 #
 production:
   <<: *default
-  database: kindly
-  username: kindly
-  host: localhost
-  password: <%= Rails.application.credentials[:database][:password] %>
+  database: <%= ENV['POSTGRES_DB'] %>
+  username: <%= ENV['POSTGRES_USER'] %>
+  host: <%= ENV['DB_HOST'] %>
+  password: <%= Rails.application.credentials.dig(:database, :password) %>
