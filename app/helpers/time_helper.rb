@@ -21,4 +21,8 @@ module TimeHelper
   def formatted_time(view)
     view.start_at.strftime('%A, %e %b')
   end
+
+  def format_notes(entry)
+    NoteString.new(entry.description).format(UrlFormatter.new).html_safe
+  end
 end
