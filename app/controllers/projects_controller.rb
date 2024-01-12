@@ -2,13 +2,13 @@
 
 class ProjectsController < ApplicationController
   def new
-    group = Group.find_by!(name: params[:group_name])
+    group = Group.find(params[:group_id])
 
     render partial: 'new', locals: { project: group.projects.build }
   end
 
   def index
-    render :index, locals: { projects: }
+    render :index, locals: { groups: current_user.groups.order(:name) }
   end
 
   def show
@@ -49,11 +49,7 @@ class ProjectsController < ApplicationController
     Project.find(params[:id])
   end
 
-  def projects
-    current_user.projects.grouped
-  end
-
   def project_params
-    params.require(:project).permit(:name, :group_id)
+    params.require(:project).permit(:name, :group_id, :billable, :rounding_factor)
   end
 end

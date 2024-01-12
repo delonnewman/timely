@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+require_relative '../kindly'
+
 namespace :docker do
   namespace :image do
     desc 'Build docker image'
@@ -19,7 +23,7 @@ namespace :docker do
     desc 'Create a container from the most recently built image'
     task create: :environment do
       sh 'docker container create --name kindly -p 3000:3000 ' \
-         "-e RAILS_MASTER_KEY=$(cat config/master.key) ghcr.io/delonnewman/kindly:#{Kindly.version}"
+         "--env-file .env ghcr.io/delonnewman/kindly:#{Kindly.version}"
     end
 
     desc 'Start an already created container'

@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get '/time/day/duration', to: 'time#day_duration'
   get '/time/week/duration', to: 'time#week_duration'
 
-  namespace 'api/v1', as: 'api_v1' do
+  namespace 'api/v1', as: 'api_v1', except: %i[new edit] do
     resources :teams
     resources :groups
     resources :projects

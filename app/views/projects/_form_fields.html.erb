@@ -1,0 +1,16 @@
+<%# locals: (form:, project:)%>
+
+<%= form.hidden_field :group_id  %>
+<%= form.text_field :name, class: class_names('form-control', 'is-invalid': project.errors[:name].present?), placeholder: "A fancy new project for #{project.group.name}" %>
+
+<div class="form-check my-2">
+  <%= form.check_box :billable,
+        class: 'form-check-input',
+        onclick: "document.querySelector('##{new_project_id(project.group)} #project_rounding_factor, ##{dom_id(project)} #project_rounding_factor').disabled = !this.checked" %>
+  <%= form.label :billable, class: 'form-check-label' %>
+</div>
+<div class="d-flex align-items-center mb-2">
+  <%= form.label :rounding_factor, 'Round by', class: class_names('form-check-label', 'me-2', 'text-muted': !project.billable?) %>
+  <%= form.number_field :rounding_factor, class: 'form-control form-control-sm me-2', style: 'width:5rem', disabled: !project.billable? %>
+  <label class="<%= class_names('text-muted': !project.billable?) %>">minutes</label>
+</div>

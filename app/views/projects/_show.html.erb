@@ -1,5 +1,10 @@
+<%# locals: (project:) %>
+
+<% if project.previously_new_record? %>
+  <div id="<%= new_project_id project.group %>"></div>
+<% end %>
 <div id="project-<%= project.id %>">
-  <div class="card mb-3" style="width:360px">
+  <div class="card mb-3 bg-light">
     <div class="card-body">
       <%= project %>
       <button
@@ -10,6 +15,7 @@
       >
         Edit
       </button>
+      <% if project.billable? %><span class="badge bg-secondary">billable</span><% end %>
     </div>
   </div>
 </div>

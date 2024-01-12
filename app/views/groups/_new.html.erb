@@ -1,0 +1,32 @@
+<%# locals: (group:) %>
+
+<div
+  id="new-group"
+  class="me-4 border p-4"
+  style="min-width:<%= group_card_width %>px"
+  hx-on:htmx:after-settle="
+    let elem = document.getElementById('groups-container');
+    elem.scrollTo({ left: elem.scrollWidth, behavior: 'smooth' })"
+>
+  <%= form_for group, url: groups_path do |f| %>
+    <%= f.hidden_field :team_id %>
+    <%= f.text_field :name, placeholder: 'A new group', class: class_names("form-control": true, 'is-invalid': group.errors[:name].present?), required: true %>
+    <div class="mt-2">
+      <button
+        class="btn btn-primary"
+        hx-post="<%= groups_path %>"
+        hx-swap="outerHTML"
+        hx-target="#new-group"
+      >
+        Create
+      </button>
+      <button
+        class="btn btn-sm btn-outline-secondary"
+        hx-on:click="document.getElementById('new-group').hidden = true"
+        type="button"
+      >
+        Cancel
+      </button>
+    </div>
+  <% end %>
+</div>

@@ -1,14 +1,16 @@
-<div id="project-<%= project.id %>">
+<%# locals: (project:) %>
+
+<div id="<%= dom_id project %>">
   <div class="card mb-3">
     <div class="card-body">
       <%= form_for project, url: project_path(project) do |f| %>
-        <%= f.text_field :name, class: 'form-control' %>
+        <%= render 'form_fields', form: f, project: %>
         <div class="mt-2">
           <button
             class="btn btn-sm btn-primary"
             hx-post="<%= project_path(project) %>"
             hx-swap="innerHTML"
-            hx-target="#project-<%= project.id %>"
+            hx-target="#<%= dom_id project %>"
           >
             Update
           </button>
@@ -16,7 +18,7 @@
             class="btn btn-sm btn-outline-secondary"
             hx-get="<%= project_path(project) %>"
             hx-swap="innerHTML"
-            hx-target="#project-<%= project.id %>"
+            hx-target="#<%= dom_id project %>"
           >
             Cancel
           </button>
@@ -25,7 +27,7 @@
             hx-confirm="Are you sure you want to delete this project?"
             hx-delete="<%= project_path(project) %>"
             hx-swap="outerHTML"
-            hx-target="#project-<%= project.id %>"
+            hx-target="#<%= dom_id project %>"
           >
             Delete
           </button>

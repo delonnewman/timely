@@ -6,7 +6,7 @@ class Group < ApplicationRecord
 
   belongs_to :team
 
-  has_many :projects
+  has_many :projects, -> { order(:name) }
   accepts_nested_attributes_for :projects
 
   has_many :time_entries, through: :projects

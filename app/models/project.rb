@@ -3,7 +3,8 @@
 # The organizing unit for time entries
 class Project < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }
-  validates :rounding_factor, presence: true, numericality: true
+  validates :name, uniqueness: { scope: :group_id }
+  validates :rounding_factor, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
   belongs_to :group
   has_many :time_entries
@@ -14,7 +15,7 @@ class Project < ApplicationRecord
   has_many :timers
   has_many :invoices
 
-  scope :grouped, -> { includes(:group).group_by { |p| p.group.name } }
+  scope :grouped, -> { includes(:group).group_by(&:group) }
 
   def to_s(spec = :name)
     case spec

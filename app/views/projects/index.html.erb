@@ -1,13 +1,17 @@
 <div class="mb-3 d-flex justify-content-end">
   <button
     class="btn btn-primary"
+    hx-get="<%= new_group_path %>"
+    hx-swap="outerHTML"
+    hx-target="#new-group"
+    hx-on:htmx-after-swap="console.log('afterSwap', this)"
   >
     Add Group
   </button>
 </div>
-<div class="d-flex overflow-x-scroll">
-  <div id="new-group"></div>
-  <% projects.each do |group_name, projects| %>
-    <%= render 'group', group_name:, projects: %>
+<div id="groups-container" class="d-flex overflow-x-scroll">
+  <% groups.each do |group| %>
+    <%= render 'groups/show', group: %>
   <% end %>
+  <div id="new-group"></div>
 </div>

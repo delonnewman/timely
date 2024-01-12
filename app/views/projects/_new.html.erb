@@ -1,21 +1,22 @@
-<div id="<%= new_project_id project.group.name %>">
+<%# locals: (project:) %>
+
+<div id="<%= new_project_id project.group %>">
   <div class="card mb-3">
     <div class="card-body">
       <%= form_for project, url: projects_path do |f| %>
-        <%= f.hidden_field :group_id  %>
-        <%= f.text_field :name, class: 'form-control', placeholder: "A fancy new project for #{project.group.name}" %>
+        <%= render 'form_fields', form: f, project: %>
         <div class="mt-2">
           <button
             class="btn btn-sm btn-primary"
             hx-post="<%= projects_path %>"
-            hx-swap="innerHTML"
-            hx-target="#<%= new_project_id project.group.name %>"
+            hx-swap="outerHTML"
+            hx-target="#<%= new_project_id project.group %>"
           >
             Create
           </button>
           <button
             class="btn btn-sm btn-outline-secondary"
-            hx-on:click="this.parentElement.parentElement.parentElement.parentElement.remove()"
+            hx-on:click="document.getElementById('<%= new_project_id project.group %>').hidden = true"
             type="button"
           >
             Cancel
