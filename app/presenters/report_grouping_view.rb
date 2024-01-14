@@ -32,10 +32,10 @@ class ReportGroupingView
   end
 
   def billable_amount
-    @billable_amount ||= Report.billable_amount(entry_ids)
+    @billable_amount ||= TimeEntry.billable_amount(entry_ids)
   end
 
   def billable_percentage
-    @billable_percentage ||= Report.billable_percentage(entry_ids)
+    @billable_percentage ||= TimeEntry.billable_percentage(entry_ids)
   end
 end

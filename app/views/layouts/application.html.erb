@@ -14,15 +14,17 @@
   <body hx-headers='{"X-CSRF-Token": "<%= form_authenticity_token %>"}'>
     <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
       <div class="container-fluid">
-        <span class="navbar-brand mb-0">
+        <a class="navbar-brand mb-0" href="<%= root_path %>">
           <i class="bi bi-clock"></i>
-          Kindly
-        </span>
+        </a>
         <% if user_signed_in? %>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0" hx-boost="true">
-            <%= nav_item 'Time', time_path, active: params[:controller] == 'time' %>
-            <%= nav_item 'Projects', projects_path, active: params[:controller] == 'projects' %>
-            <%= nav_item 'Reports', reports_path, active: params[:controller] == 'reports' %>
+            <%= nav_item root_path, active: current_page?(controller: 'dashboard') do %>
+              <i class="bi bi-house-door"></i>
+            <% end %>
+            <%= nav_item 'Time', time_path, active: current_page?(controller: 'time') %>
+            <%= nav_item 'Projects', projects_path, active: current_page?(controller: 'projects') %>
+            <%= nav_item 'Reports', reports_path, active: current_page?(controller: 'reports') %>
           </ul>
           <ul class="navbar-nav mb-2 mb-lg-0">
             <li class="nav-item dropdown">

@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :groups, through: :team
   has_many :projects, ->{ joins(:group).order('groups.name, projects.name') }, through: :groups
 
+  has_one :dashboard
   has_many :time_entries
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :trackable, :confirmable

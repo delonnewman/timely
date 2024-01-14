@@ -1,0 +1,14 @@
+<div class="row">
+  <% dashboard.widgets_by_row(0).each do |widget| %>
+    <div class="col-3">
+      <%= render widget, widget: %>
+    </div>
+  <% end %>
+</div>
+<div class="row">
+  <% dashboard.widgets_by_row(1).each do |widget| %>
+    <div class="col-3">
+      <%= render widget, widget: %>
+    </div>
+  <% end %>
+</div>

@@ -10,9 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_30_020754) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_13_223104) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dashboards", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_dashboards_on_user_id"
+  end
 
   create_table "groups", force: :cascade do |t|
     t.bigint "team_id", null: false
@@ -112,6 +119,18 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_30_020754) do
     t.index ["team_id"], name: "index_users_on_team_id"
   end
 
+  create_table "widget_placements", force: :cascade do |t|
+    t.bigint "dashboard_id", null: false
+    t.string "widget_class_name", null: false
+    t.integer "position_horizontal", null: false
+    t.integer "position_vertical", null: false
+    t.json "meta_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dashboard_id"], name: "index_widget_placements_on_dashboard_id"
+  end
+
+  add_foreign_key "dashboards", "users"
   add_foreign_key "groups", "teams"
   add_foreign_key "invoices", "projects"
   add_foreign_key "pay_rates", "projects"
@@ -120,4 +139,5 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_30_020754) do
   add_foreign_key "time_entries", "users"
   add_foreign_key "timers", "projects"
   add_foreign_key "users", "teams"
+  add_foreign_key "widget_placements", "dashboards"
 end

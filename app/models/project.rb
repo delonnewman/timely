@@ -15,7 +15,7 @@ class Project < ApplicationRecord
   has_many :timers
   has_many :invoices
 
-  scope :grouped, -> { includes(:group).group_by(&:group) }
+  scope :named, ->(names) { where(name: names) }
 
   def to_s(spec = :name)
     case spec

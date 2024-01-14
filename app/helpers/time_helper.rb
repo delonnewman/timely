@@ -19,7 +19,7 @@ module TimeHelper
   end
 
   def formatted_time(view)
-    view.start_at.strftime('%A, %e %b')
+    view.start_at.strftime('%A, %B %e')
   end
 
   def format_notes(entry)

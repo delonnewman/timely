@@ -58,8 +58,8 @@ class TimeView
   def query(start_at, end_at)
     TimeEntry
       .includes(project: :group)
+      .within(start_at..end_at)
       .where(user_id: user.id)
-      .where('created_at BETWEEN ? AND ?', start_at, end_at)
       .order(minutes: :desc)
   end
 
