@@ -5,10 +5,10 @@
     <div class="d-flex">
       <h3><%= group.name %></h3>
       <button
-        class="btn btn-sm btn-link"
+        class="btn btn-sm btn-link text-secondary"
         hx-get="<%= edit_group_path(group) %>"
-        hx-swap="outerHTML"
-        hx-target="#<%= new_project_id group %>"
+        hx-swap="innerHTML"
+        hx-target="#<%= dom_id group %>"
       >
         Edit
       </button>

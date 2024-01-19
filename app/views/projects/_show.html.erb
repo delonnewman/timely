@@ -8,7 +8,7 @@
     <div class="card-body">
       <%= project %>
       <button
-        class="btn btn-sm btn-link"
+        class="btn btn-sm btn-link text-secondary"
         hx-get="<%= edit_project_path(project) %>"
         hx-swap="innerHTML"
         hx-target="#project-<%= project.id %>"

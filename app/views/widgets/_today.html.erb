@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-body">
-    <h1 class="card-title"><%= today.time.strftime('%I:%M %p') %></h1>
-    <p><%= today.date.strftime('%A, %B, %d') %></p>
+    <h1 class="card-title"><%= today.time.strftime('%l:%M %p') %></h1>
+    <p><%= today.date.strftime('%A, %B %d') %></p>
     <%= entry_summary today.most_recent_entry %>
   </div>
 </div>

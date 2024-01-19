@@ -1,12 +1,12 @@
 <%# locals: (group:) %>
 
-<div id="<%= dom_id group, :edit %>" class="mb-3">
+<div id="<%= dom_id group, :edit %>" class="mb-3" hx-on:htmx:afterSettle="this.hidden = false">
   <%= form_for group, url: group_path(group) do |f| %>
     <%= f.hidden_field :team_id %>
     <%= f.text_field :name, class: class_names("form-control": true, 'is-invalid': group.errors[:name].present?), required: true %>
     <div class="mt-2">
       <button
-        class="btn btn-primary"
+        class="btn btn-sm btn-primary"
         hx-post="<%= group_path(group) %>"
         hx-swap="outerHTML"
         hx-target="#<%= dom_id group %>"
@@ -15,8 +15,10 @@
       </button>
       <button
         class="btn btn-sm btn-outline-secondary"
-        hx-on:click="document.getElementById('<%= dom_id group, :edit %>').remove()"
         type="button"
+        hx-get="<%= group_path(group) %>"
+        hx-swap="outerHTML"
+        hx-target="#<%= dom_id group %>"
       >
         Cancel
       </button>

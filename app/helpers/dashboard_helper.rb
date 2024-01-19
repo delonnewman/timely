@@ -3,6 +3,6 @@ module DashboardHelper
     return unless entry
 
     %(#{entry.project}&mdash;#{entry.duration}<br>
-      <small class="text-muted">#{entry.description}</small>).html_safe
+      <small class="text-muted">#{truncate(entry.description, length: 68)}</small>).html_safe
   end
 end

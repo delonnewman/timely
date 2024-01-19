@@ -5,6 +5,10 @@ class GroupsController < ApplicationController
     render partial: 'new', locals: { group: current_user.team.groups.build }
   end
 
+  def show
+    render partial: 'show', locals: { group: }
+  end
+
   def create
     group = Group.new(group_params)
 
