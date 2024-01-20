@@ -9,9 +9,21 @@ class Dashboard < ApplicationRecord
     end
   end
 
+  def widgets
+    widget_placements.map(&:widget)
+  end
+
   def add_widget(widget_class, **meta_data)
     namespaced = MetaData.namespace_keys(meta_data, widget_class)
     widget_placements.add(widget_class, grid.next_position, **namespaced)
+  end
+
+  def widget(placement_id)
+    widget_placements.find(placement_id)
+  end
+
+  def remove_widget(placement_id)
+    widget_placements.where(id: placement_id).destroy_all
   end
 
   def swap_widgets(widget1, widget2)

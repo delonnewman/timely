@@ -26,6 +26,7 @@ gem 'oj'
 
 # Language Extentions
 gem 'invokable'
+gem 'literal_enums'
 gem 'memo_wise'
 
 # User data formats

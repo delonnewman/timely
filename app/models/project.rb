@@ -9,8 +9,9 @@ class Project < ApplicationRecord
   belongs_to :group
   has_many :time_entries
 
-  has_one :pay_rate, dependent: :destroy
-  accepts_nested_attributes_for :pay_rate
+  composed_of :pay_rate, mapping: { pay_rate_amount: :magnitude, pay_rate_unit: :unit }
+  validates :pay_rate_amount, numericality: { greater_than: 0 }
+  enum :pay_rate_unit, { per_hour: 'per_hour' }
 
   has_many :timers
   has_many :invoices

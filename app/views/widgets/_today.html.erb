@@ -1,7 +1,7 @@
-<div class="card">
-  <div class="card-body">
+<div class="card-body d-flex flex-column justify-content-between">
+  <div>
     <h1 class="card-title"><%= today.time.strftime('%l:%M %p') %></h1>
     <p><%= today.date.strftime('%A, %B %d') %></p>
-    <%= entry_summary today.most_recent_entry %>
   </div>
+  <%= entry_summary today.most_recent_entry %>
 </div>

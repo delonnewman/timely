@@ -19,7 +19,7 @@
         </a>
         <% if user_signed_in? %>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0" hx-boost="true">
-            <%= nav_item root_path, active: current_page?(controller: 'dashboard') do %>
+            <%= nav_item root_path, active: current_page?(controller: 'dashboards') do %>
               <i class="bi bi-house-door"></i>
             <% end %>
             <%= nav_item 'Time', time_path, active: current_page?(controller: 'time') %>

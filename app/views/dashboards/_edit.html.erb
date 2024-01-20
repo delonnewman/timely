@@ -1,0 +1,30 @@
+<div id="dashboard">
+  <button
+    hx-get="<%= dashboard_path %>"
+    hx-swap="outerHTML"
+    hx-target="#dashboard"
+  >
+    Save
+  </button>
+  <button
+    hx-get="<%= dashboard_path %>"
+    hx-swap="outerHTML"
+    hx-target="#dashboard"
+  >
+    Add
+  </button>
+  <div class="row">
+    <% dashboard.widgets_by_row(0).each do |widget| %>
+      <div class="col-3">
+        <%= render 'widgets/edit', widget: %>
+      </div>
+    <% end %>
+  </div>
+  <div class="row">
+    <% dashboard.widgets_by_row(1).each do |widget| %>
+      <div class="col-3">
+        <%= render 'widgets/edit', widget: %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<%# locals: (dashboard:) %>
+
+<div id="dashboard">
+  <button
+    hx-get="<%= edit_dashboard_path %>"
+    hx-swap="outerHTML"
+    hx-target="#dashboard"
+  >
+    Edit
+  </button>
+  <div class="row">
+    <% dashboard.widgets_by_row(0).each do |widget| %>
+      <div class="col-3">
+        <%= render 'widgets/show', widget: %>
+      </div>
+    <% end %>
+  </div>
+  <div class="row">
+    <% dashboard.widgets_by_row(1).each do |widget| %>
+      <div class="col-3">
+        <%= render 'widgets/show', widget: %>
+      </div>
+    <% end %>
+  </div>
+</div>

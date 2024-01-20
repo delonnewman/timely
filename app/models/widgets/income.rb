@@ -1,5 +1,9 @@
 module Widgets
+  # Display up-to-date income information
   class Income < Widget
+    size :small
+    attribute :month_goal, default: 0
+
     def this_month
       user.time_entries.this_month.billable_amount
     end
@@ -16,8 +20,8 @@ module Widgets
       month_goal - this_month
     end
 
-    def month_goal
-      meta_data.fetch('income.month_goal', 0)
+    def month_goal?
+      !month_goal.zero?
     end
   end
 end

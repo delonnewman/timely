@@ -9,6 +9,16 @@ module MetaData
     end
   end
 
+  def self.get(meta_data, name, alt = nil)
+    denamespace_keys(meta_data).fetch(name, alt)
+  end
+
+  def self.denamespace_keys(meta_data)
+    meta_data.transform_keys do |name|
+      name.split('.').last
+    end
+  end
+
   def self.namespace(klass)
     klass.name.split('::').last.underscore
   end

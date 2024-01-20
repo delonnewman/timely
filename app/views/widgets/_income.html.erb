@@ -1,39 +1,39 @@
-<div class="card">
-  <div class="card-body">
-    <h6 class="card-title text-muted">Income</h6>
-    <table class="table table-sm">
-      <tbody>
-        <tr>
-          <th>Last Week</th>
-          <td class="text-end">
-            <%= number_to_currency income.last_week %>
-          </td>
-        </tr>
-        <tr>
-          <th>This Week</th>
-          <td class="text-end">
-            <%= number_to_currency income.this_week %>
-          </td>
-        </tr>
-        <tr>
-          <th>This Month</th>
-          <td class="text-end">
-            <%= number_to_currency income.this_month %>
-          </td>
-        </tr>
-        <tr>
-          <th>Month Goal</th>
-          <td class="text-end">
-            <%= number_to_currency income.month_goal %>
-          </td>
-        </tr>
-        <tr>
-          <th>Still to go</th>
-          <td class="text-danger text-end">
-            <%= number_to_currency income.still_to_go %>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="card-body">
+  <h6 class="card-title text-muted">Income</h6>
+  <table class="table table-sm">
+    <tbody>
+      <tr>
+        <th>Last Week</th>
+        <td class="text-end">
+          <%= number_to_currency income.last_week %>
+        </td>
+      </tr>
+      <tr>
+        <th>This Week</th>
+        <td class="text-end">
+          <%= number_to_currency income.this_week %>
+        </td>
+      </tr>
+      <tr>
+        <th>This Month</th>
+        <td class="text-end">
+          <%= number_to_currency income.this_month %>
+        </td>
+      </tr>
+      <% if income.month_goal? %>
+      <tr>
+        <th>Month Goal</th>
+        <td class="text-end">
+          <%= number_to_currency income.month_goal %>
+        </td>
+      </tr>
+      <tr>
+        <th>Still to go</th>
+        <td class="text-danger text-end">
+          <%= number_to_currency income.still_to_go %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

@@ -13,6 +13,10 @@ class WidgetPlacement < ApplicationRecord
     widget_class_name.constantize
   end
 
+  def update_meta_data(updates)
+    update(meta_data: MetaData.namespace_keys(updates, widget_class))
+  end
+
   def swap_with!(other)
     self_position = position
     other_position = other.position

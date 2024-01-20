@@ -1,29 +1,27 @@
-<div class="card">
-  <div class="card-body">
-    <h6 class="card-title text-muted">Ministry</h6>
-    <table class="table table-sm">
-      <tbody>
-        <tr>
-          <th>Field</th>
-          <td class="text-end"><%= widget.field_ministry_hours %></td>
-        </tr>
-        <tr>
-          <th>Credit</th>
-          <td class="text-end"><%= widget.credit_hours %></td>
-        </tr>
-        <tr>
-          <th>Total</th>
-          <td class="text-end"><%= widget.total_hours %></td>
-        </tr>
-        <tr>
-          <th>Goal</th>
-          <td class="text-end"><%= widget.goal_hours %></td>
-        </tr>
-        <tr>
-         <th>Still to go</th>
-         <td class="text-danger text-end"><%= widget.gap_hours.round(1) %></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="card-body">
+  <h6 class="card-title text-muted">Ministry</h6>
+  <table class="table table-sm">
+    <tbody>
+      <tr>
+        <th>Field</th>
+        <td class="text-end"><%= widget.field_ministry_hours %></td>
+      </tr>
+      <tr>
+        <th>Credit</th>
+        <td class="text-end"><%= widget.credit_hours %></td>
+      </tr>
+      <tr>
+        <th>Total</th>
+        <td class="text-end"><%= widget.total_hours %></td>
+      </tr>
+      <tr>
+        <th>Goal</th>
+        <td class="text-end"><%= widget.goal_hours %></td>
+      </tr>
+      <tr>
+       <th>Still to go</th>
+       <td class="text-danger text-end"><%= widget.gap_hours.round(1) %></td>
+      </tr>
+    </tbody>
+  </table>
 </div>

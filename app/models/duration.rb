@@ -1,15 +1,23 @@
 # frozen_string_literal: true
 
 # A duration of time in minutes
-class Duration
+class Duration < Numeric
   include Comparable
 
   attr_reader :minutes
 
-  delegate :to_i, :to_r, :to_f, :hash, :zero?, to: :@minutes
+  delegate :to_i, :to_r, :to_f, :hash, :zero?, :coerce, to: :@minutes
 
   def self.zero
     @zero ||= new(0)
+  end
+
+  def self.minutes(minutes)
+    new(minutes)
+  end
+
+  def self.hours(hours)
+    new(hours * 60)
   end
 
   # Construct duration objects from hour, minute components or from a string.
@@ -39,6 +47,7 @@ class Duration
   end
 
   def initialize(minutes)
+    super()
     @minutes = minutes
     freeze
   end
@@ -94,5 +103,13 @@ class Duration
 
   def round(factor = 15)
     Duration.new((minutes.to_r / factor).round * factor)
+  end
+
+  def from_now
+    Time.zone.now + minutes
+  end
+
+  def ago
+    Time.zone.now - minutes
   end
 end

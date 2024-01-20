@@ -38,4 +38,8 @@ class User < ApplicationRecord
   def valid_email?
     email.present? && !email.end_with?('@example.com')
   end
+
+  def find_or_create_dashboard
+    dashboard || create_dashboard
+  end
 end

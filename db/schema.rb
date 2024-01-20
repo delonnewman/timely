@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_13_223104) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_19_070904) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,15 +43,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_13_223104) do
     t.index ["start_on"], name: "index_invoices_on_start_on"
   end
 
-  create_table "pay_rates", force: :cascade do |t|
-    t.uuid "project_id"
-    t.decimal "magnitude", null: false
-    t.string "unit", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_pay_rates_on_project_id"
-  end
-
   create_table "projects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "group_id", null: false
     t.string "name", null: false
@@ -59,6 +50,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_13_223104) do
     t.boolean "billable", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.money "doller_pay_rate", scale: 2, default: "75.0", null: false
+    t.decimal "pay_rate_amount", default: "75.0", null: false
+    t.string "pay_rate_unit", default: "per_hour", null: false
     t.index ["billable"], name: "index_projects_on_billable"
     t.index ["group_id"], name: "index_projects_on_group_id"
     t.index ["name"], name: "index_projects_on_name"
@@ -133,7 +127,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_13_223104) do
   add_foreign_key "dashboards", "users"
   add_foreign_key "groups", "teams"
   add_foreign_key "invoices", "projects"
-  add_foreign_key "pay_rates", "projects"
   add_foreign_key "projects", "groups"
   add_foreign_key "time_entries", "projects"
   add_foreign_key "time_entries", "users"
