@@ -2,7 +2,7 @@
 
 class TimeEntriesController < ApplicationController
   def new
-    render partial: 'new', locals: { time_entry: TimeEntry.new, entry_date: }
+    render partial: 'new', locals: { time_entry: TimeEntry.new, entry_time: }
   end
 
   def create
@@ -10,26 +10,26 @@ class TimeEntriesController < ApplicationController
 
     if entry.save
       day_duration_changed!
-      render partial: 'show', locals: { time_entry: entry, entry_date: }
+      render partial: 'show', locals: { time_entry: entry, entry_time: }
     else
-      render partial: 'new', locals: { time_entry: entry, entry_date: }
+      render partial: 'new', locals: { time_entry: entry, entry_time: }
     end
   end
 
   def show
-    render partial: 'show', locals: { time_entry:, entry_date: }
+    render partial: 'show', locals: { time_entry:, entry_time: }
   end
 
   def edit
-    render partial: 'edit', locals: { time_entry:, entry_date: }
+    render partial: 'edit', locals: { time_entry:, entry_time: }
   end
 
   def update
     if time_entry.update(time_entry_params)
       day_duration_changed!
-      render partial: 'show', locals: { time_entry:, entry_date: }
+      render partial: 'show', locals: { time_entry:, entry_time: }
     else
-      render partial: 'edit', locals: { time_entry:, entry_date: }
+      render partial: 'edit', locals: { time_entry:, entry_time: }
     end
   end
 
@@ -56,12 +56,12 @@ class TimeEntriesController < ApplicationController
 
   def no_entries?
     TimeEntry
-      .where('created_at between ? and ?', entry_date.at_beginning_of_day, entry_date.at_end_of_day)
+      .where('created_at between ? and ?', entry_time.at_beginning_of_day, entry_time.at_end_of_day)
       .empty?
   end
 
-  def entry_date
-    Date.parse(params[:entry_date] || Date.today.to_s)
+  def entry_time
+    Date.parse(params[:entry_date] || Date.today.to_s).with_time(Time.now)
   end
 
   def time_entry_params

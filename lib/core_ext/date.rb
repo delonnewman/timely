@@ -35,4 +35,8 @@ class Date
   def same_year?(date)
     year == date.year
   end
+
+  def with_time(time, form = :local)
+    Time.public_send(form, year, month, day, time.hour, time.min, time.try(:sec) || 0, time.try(:usec) || 0)
+  end
 end
