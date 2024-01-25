@@ -50,14 +50,14 @@ class Report
   end
 
   def billable_amount
-    TimeEntry.billable_amount(entry_ids)
+    TimeEntryCalculation.billable_amount(entry_ids)
   end
 
   def billable_percentage
-    TimeEntry.billable_percentage(entry_ids)
+    TimeEntryCalculation.billable_percentage(entry_ids)
   end
 
   def billable_ratio
-    TimeEntry.billable_ratio(entry_ids)
+    TimeEntryCalculation.billable_ratio(entry_ids)
   end
 end
