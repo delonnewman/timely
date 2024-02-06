@@ -8,7 +8,7 @@
       <%= time_entry.duration %>
       <button
         class="btn btn-sm btn-link ms-2"
-        hx-get="<%= edit_time_entry_path(time_entry, entry_date: time_entry.created_at.to_date) %>"
+        hx-get="<%= edit_time_entry_path(time_entry, entry_date: time_entry.started_at.to_date) %>"
         hx-swap="innerHTML"
         hx-target="#entry-<%= time_entry.id %>"
       >

@@ -9,12 +9,29 @@ class TimeEntry < ApplicationRecord
   validates :minutes, presence: true, numericality: { only_integer: true, greater_than: 0 }
   composed_of :duration, mapping: { minutes: :minutes }, converter: ->(minutes) { Duration[minutes] }
 
+  enum :status, %i[timed being_timed]
+  after_initialize :set_status
+
+  validates :started_at, presence: true
+  before_validation :ensure_start_at
+
+  scope :being_timed, -> { where(status: :being_timed) }
+  scope :timed, -> { where(status: :timed) }
+
   scope :for_projects, ->(projects) { includes(:project).where(project: projects) }
   scope :by_billability, ->(billable) { joins(:project).where('projects.billable = ? ', billable) }
   scope :billable, -> { by_billability(true) }
   scope :non_billable, -> { by_billability(false) }
 
-  scope :within, ->(range) { where(created_at: range) } do
+  scope :today, -> { within DateRange.today }
+  scope :this_week, -> { within DateRange.this_week }
+  scope :last_week, -> { within DateRange.last_week }
+  scope :this_semimonth, -> { within DateRange.this_semimonth }
+  scope :this_month, -> { within DateRange.this_month }
+  scope :this_quarter, -> { within DateRange.this_quarter }
+  scope :this_year, -> { within DateRange.this_year }
+
+  scope :within, ->(range) { where(started_at: range) } do
     def total_duration
       map(&:duration).sum(Duration.zero)
     end
@@ -24,17 +41,9 @@ class TimeEntry < ApplicationRecord
     end
 
     def by_most_recent
-      order(updated_at: :desc)
+      order(started_at: :desc)
     end
   end
-
-  scope :today, -> { within(DateRange.today) }
-  scope :this_week, -> { within(DateRange.this_week) }
-  scope :last_week, -> { within(DateRange.last_week) }
-  scope :this_semimonth, -> { within(DateRange.this_semimonth) }
-  scope :this_month, -> { within(DateRange.this_month) }
-  scope :this_quarter, -> { within(DateRange.this_quarter) }
-  scope :this_year, -> { within(DateRange.this_year) }
 
   def billable_amount
     return 0 unless billable?
@@ -47,6 +56,16 @@ class TimeEntry < ApplicationRecord
   end
 
   def date
-    created_at.to_date
+    started_at.to_date
+  end
+
+  private
+
+  def ensure_start_at
+    self.started_at = Time.zone.now unless started_at
+  end
+
+  def set_status
+    self.status = :being_timed unless minutes
   end
 end

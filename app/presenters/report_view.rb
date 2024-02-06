@@ -31,7 +31,7 @@ class ReportView
     @project_ids = project_ids
     @start_on    = start_on.to_date
     @end_on      = end_on.to_date
-    @report      = Report.new(project_ids, start_at:, end_at:)
+    @report      = Report.new(project_ids, date_range)
     @grouping    = @report.build_grouping(grouping)
   end
 

@@ -1,5 +1,5 @@
 <%= form_for time_entry, url: time_entry_path(time_entry) do |f| %>
-  <%= f.hidden_field :created_at, value: entry_time %>
+  <%= f.hidden_field :started_at, value: entry_time %>
   <%= f.hidden_field :user_id %>
   <div class="row">
     <div class="col-11">
@@ -30,7 +30,7 @@
     <button
       class="btn btn-sm btn-link text-danger"
       hx-confirm="Are you sure you want to delete this entry?"
-      hx-delete="<%= time_entry_path(time_entry, entry_date: time_entry.created_at.to_date) %>"
+      hx-delete="<%= time_entry_path(time_entry, entry_date: time_entry.started_at.to_date) %>"
       hx-swap="outerHTML"
       hx-target="#entry-<%= time_entry.id %>"
     >

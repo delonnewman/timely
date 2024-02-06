@@ -56,15 +56,15 @@ class TimeEntriesController < ApplicationController
 
   def no_entries?
     TimeEntry
-      .where('created_at between ? and ?', entry_time.at_beginning_of_day, entry_time.at_end_of_day)
+      .within(entry_time.at_beginning_of_day..entry_time.at_end_of_day)
       .empty?
   end
 
   def entry_time
-    Date.parse(params[:entry_date] || Date.today.to_s).with_time(Time.now)
+    Date.parse(params[:entry_date].presence || Date.today.to_s).to_time
   end
 
   def time_entry_params
-    params.require(:time_entry).permit(:duration, :description, :project_id, :created_at, :user_id)
+    params.require(:time_entry).permit(:duration, :description, :project_id, :started_at, :user_id)
   end
 end

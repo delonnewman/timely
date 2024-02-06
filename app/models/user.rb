@@ -25,8 +25,8 @@ class User < ApplicationRecord
   end
   alias nickname first_name
 
-  def earliest_entry_created_at
-    time_entries.minimum(:created_at)
+  def date_of_earliest_entry
+    time_entries.minimum(:started_at)&.to_date
   end
 
   def gravatar_url

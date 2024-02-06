@@ -3,7 +3,7 @@
 # Report on all the user's entries
 class AllTimeReportView < ReportView
   def self.current(user)
-    new(user, start_on: user.earliest_entry_created_at, end_on: Date.today)
+    new(user, start_on: user.date_of_earliest_entry, end_on: Date.today)
   end
 
   def kind

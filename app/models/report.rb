@@ -2,22 +2,21 @@
 
 # A generated report for the given projects
 class Report
-  attr_reader :project_ids, :start_at, :end_at, :name
+  attr_reader :project_ids, :date_range, :name
 
   def self.this_week(project_ids)
-    new(project_ids, start_at: Date.today.at_beginning_of_week, end_at: Date.today.at_end_of_week)
+    new(project_ids, DateRange.this_week)
   end
 
-  def initialize(project_ids, start_at:, end_at:, name: nil)
+  def initialize(project_ids, date_range, name: nil)
     @project_ids    = project_ids
-    @start_at       = start_at.at_beginning_of_day
-    @end_at         = end_at.at_end_of_day
+    @date_range     = date_range
     @name           = name
     @total_duration = nil
   end
 
   def entries
-    TimeEntry.where(project_id: project_ids).within(start_at..end_at)
+    TimeEntry.where(project_id: project_ids).within(date_range)
   end
 
   def build_grouping(name)

@@ -12,7 +12,7 @@ class Report::Grouping::ByDate < Report::Grouping
     report
       .entries
       .includes(:user, project: :group)
-      .order(:created_at, 'groups.name, projects.name')
+      .order(:started_at, 'groups.name, projects.name')
       .group_by(&:date)
   end
 end

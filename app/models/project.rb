@@ -13,7 +13,6 @@ class Project < ApplicationRecord
   validates :pay_rate_amount, numericality: { greater_than: 0 }
   enum :pay_rate_unit, { per_hour: 'per_hour' }
 
-  has_many :timers
   has_many :invoices
 
   scope :named, ->(names) { where(name: names) }
