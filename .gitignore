@@ -36,3 +36,4 @@
 /.idea/
 .DS_Store
 .env
+db/dump*.sql
