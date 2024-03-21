@@ -4,13 +4,19 @@
 class TimeView
   delegate :empty?, :exists?, :none?, to: :entries
 
+  attr_reader :ref_date
+  alias start_on ref_date
+  alias end_on ref_date
+
+  delegate :year, :month, :day, to: :ref_date
+
   def self.[](name)
     "#{name}_time_view".classify.constantize
   end
 
-  def initialize(user, params)
+  def initialize(user, ref_date)
     @user = user
-    @params = params
+    @ref_date = ref_date
   end
 
   def date_totals
@@ -59,7 +65,7 @@ class TimeView
     TimeEntry
       .includes(project: :group)
       .within(start_at..end_at)
-      .where(user_id: user.id)
+      .where(user_id: @user.id)
       .order(minutes: :desc)
   end
 
@@ -70,26 +76,4 @@ class TimeView
   def end_at
     end_on.at_end_of_day
   end
-
-  def ref_date
-    Date.new(year, month, day)
-  end
-  alias start_on ref_date
-  alias end_on ref_date
-
-  def year
-    params.fetch(:year, Date.today.year).to_i
-  end
-
-  def month
-    params.fetch(:month, Date.today.month).to_i
-  end
-
-  def day
-    params.fetch(:day, Date.today.day).to_i
-  end
-
-  private
-
-  attr_reader :user, :params
 end
