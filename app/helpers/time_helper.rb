@@ -23,6 +23,6 @@ module TimeHelper
   end
 
   def format_notes(entry)
-    NoteString.new(entry.description).format(UrlFormatter.new).html_safe
+    NoteString.new(entry.description || '').format(UrlFormatter.new).html_safe
   end
 end

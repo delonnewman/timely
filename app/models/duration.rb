@@ -26,25 +26,24 @@ class Duration < Numeric
   # will be parsed otherwise it will be passed to new as the number of minutes.
   #
   # @see parse for string formatting
-  def self.[](hour, min = nil)
-    if min
-      new((hour * 60) + min)
-    elsif hour.is_a?(String)
-      parse(hour)
+  def self.[](first, second = nil)
+    if second
+      new((first * 60) + second)
+    elsif first.is_a?(String)
+      parse(first)
     else
-      new(hour)
+      new(first.to_i)
     end
   end
 
-  ParseError = Class.new(RuntimeError)
-
-  # Parse duration from string of the form "HH:MM"
   def self.parse(string)
-    raise ParseError, "invalid format expected HH:MM, got #{string.inspect}" unless string =~ /\A\d{1,2}:\d\d\z/
-
-    hour, min = string.split(':')
-    new((hour.to_i * 60) + min.to_i)
+    Duration::Format.registry.find(string).parse
   end
+
+  Duration::Format.registry << Duration::ColonFormat
+  Duration::Format.registry << Duration::ExplicitFormat
+
+  private_class_method :new
 
   def initialize(minutes)
     super()
@@ -63,14 +62,14 @@ class Duration < Numeric
 
   def +(other)
     if other.respond_to?(:minutes)
-      Duration.new(minutes + other.minutes)
+      Duration.minutes(minutes + other.minutes)
     else
-      Duration.new(minutes + other)
+      Duration.minutes(minutes + other)
     end
   end
 
   def -@
-    Duration.new(-minutes)
+    Duration.minutes(-minutes)
   end
 
   def -(other)
@@ -93,6 +92,10 @@ class Duration < Numeric
   # Add this for symmetry
   alias in_minutes minutes
 
+  def in_seconds
+    minutes * 60
+  end
+
   def hour
     in_hours.truncate
   end
@@ -102,14 +105,14 @@ class Duration < Numeric
   end
 
   def round(factor = 15)
-    Duration.new((minutes.to_r / factor).round * factor)
+    Duration.minutes((minutes.to_r / factor).round * factor)
   end
 
   def from_now
-    Time.zone.now + minutes
+    Time.zone.now + in_seconds
   end
 
   def ago
-    Time.zone.now - minutes
+    Time.zone.now - in_seconds
   end
 end

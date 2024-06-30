@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Perform calculations for time entries
 module TimeEntryCalculation
   def self.billable_amount(entry_ids)
     TimeEntry.includes(:project).where(id: entry_ids).select(:minutes, :project_id).reduce(0) do |sum, entry|

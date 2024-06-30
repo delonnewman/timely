@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # An entry of recorded minutes in a project
 class TimeEntry < ApplicationRecord
   belongs_to :user
@@ -23,13 +25,13 @@ class TimeEntry < ApplicationRecord
   scope :billable, -> { by_billability(true) }
   scope :non_billable, -> { by_billability(false) }
 
-  scope :today, -> { within DateRange.today }
-  scope :this_week, -> { within DateRange.this_week }
-  scope :last_week, -> { within DateRange.last_week }
-  scope :this_semimonth, -> { within DateRange.this_semimonth }
-  scope :this_month, -> { within DateRange.this_month }
-  scope :this_quarter, -> { within DateRange.this_quarter }
-  scope :this_year, -> { within DateRange.this_year }
+  scope :today, -> { within TimeRange.today }
+  scope :this_week, -> { within TimeRange.this_week }
+  scope :last_week, -> { within TimeRange.last_week }
+  scope :this_semimonth, -> { within TimeRange.this_semimonth }
+  scope :this_month, -> { within TimeRange.this_month }
+  scope :this_quarter, -> { within TimeRange.this_quarter }
+  scope :this_year, -> { within TimeRange.this_year }
 
   scope :within, ->(range) { where(started_at: range) } do
     def total_duration

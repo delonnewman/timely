@@ -5,7 +5,7 @@ class Report
   attr_reader :project_ids, :date_range, :name
 
   def self.this_week(project_ids)
-    new(project_ids, DateRange.this_week)
+    new(project_ids, TimeRange.this_week)
   end
 
   def initialize(project_ids, date_range, name: nil)

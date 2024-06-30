@@ -7,7 +7,6 @@ class Widget
   delegate :meta_data, :position, :dashboard, :user, to: :@placement
 
   def self.size(value = nil)
-
     return @size if value.nil?
 
     @size = WidgetSize.cast(value)

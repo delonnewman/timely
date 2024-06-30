@@ -23,7 +23,7 @@ module Kindly
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
-    config.time_zone = 'Mountain Time (US & Canada)'
+    config.time_zone = 'Eastern Time (US & Canada)'
 
     config.hosts << 'kindly.test'
     config.hosts << 'time.delonnewman.name'

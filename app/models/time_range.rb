@@ -1,4 +1,5 @@
-module DateRange
+# Some useful time ranges
+module TimeRange
   def self.today
     Date.today.at_beginning_of_day.in_time_zone..Date.today.at_end_of_day.in_time_zone
   end
