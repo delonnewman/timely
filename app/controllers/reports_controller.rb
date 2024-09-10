@@ -15,10 +15,10 @@ class ReportsController < ApplicationController
   private
 
   def report
-    ReportView[kind_key].build(current_user.project_ids, start_on:, end_on:, grouping:)
+    ReportView.build(current_user.project_ids, start_on:, end_on:, grouping:, kind:)
   end
 
-  def kind_key
+  def kind
     params.fetch(:kind, DEFAULT_KIND).to_sym
   end
 

@@ -19,7 +19,7 @@ class Dashboard < ApplicationRecord
   end
 
   def widget(placement_id)
-    widget_placements.find(placement_id)
+    widget_placements.find(placement_id).widget
   end
 
   def remove_widget(placement_id)

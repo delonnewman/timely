@@ -14,7 +14,7 @@ class WidgetPlacement < ApplicationRecord
   end
 
   def update_meta_data(updates)
-    update(meta_data: MetaData.namespace_keys(updates, widget_class))
+    update(meta_data: meta_data.merge(MetaData.namespace_keys(updates, widget_class)))
   end
 
   def swap_with!(other)

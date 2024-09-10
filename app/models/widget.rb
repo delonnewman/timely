@@ -4,7 +4,8 @@
 class Widget
   attr_reader :placement
 
-  delegate :meta_data, :position, :dashboard, :user, to: :@placement
+  delegate :meta_data, :position, :dashboard, :update_meta_data, :user, to: :@placement
+  delegate :slug, to: 'self.class'
 
   def self.size(value = nil)
     return @size if value.nil?
@@ -23,6 +24,10 @@ class Widget
 
   def self.attributes
     @attributes || EMPTY_HASH
+  end
+
+  def self.slug
+    name.demodulize.underscore.to_sym
   end
 
   def initialize(placement)

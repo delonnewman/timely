@@ -10,17 +10,18 @@ class ReportView
 
   delegate :columns, :column_names, :column_methods, to: :grouping
 
-  def self.[](kind)
-    return self if [:custom, 'custom'].include?(kind)
+  def self.for(kind)
+    return self if kind.to_sym == :custom
 
     # FIXME: this isn't secure it should lookup by kind in a hash map
     "#{kind}_report_view".classify.constantize
   end
 
-  def self.build(project_ids, grouping:, start_on: nil, end_on: nil)
-    return current(project_ids) unless start_on && end_on
+  def self.build(project_ids, grouping:, start_on: nil, end_on: nil, kind: :custom)
+    klass = self.for(kind)
+    return klass.current(project_ids) unless start_on && end_on
 
-    new(project_ids, start_on:, end_on:, grouping:)
+    klass.new(project_ids, start_on:, end_on:, grouping:)
   end
 
   def self.current(project_ids)
@@ -40,11 +41,15 @@ class ReportView
   end
 
   def title
-    "#{title_prefix}: #{formatted_start_date} - #{formatted_end_date}"
+    if title_prefix
+      "#{title_prefix}: #{formatted_start_date} - #{formatted_end_date}"
+    else
+      "#{formatted_start_date} - #{formatted_end_date}"
+    end
   end
 
   def title_prefix
-    'Custom'
+    nil
   end
 
   def formatted_start_date
